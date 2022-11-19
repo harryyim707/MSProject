@@ -232,7 +232,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/breakfastInfo"
             android:layout_width="409dp"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
