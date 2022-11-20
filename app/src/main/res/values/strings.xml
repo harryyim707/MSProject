@@ -17,4 +17,5 @@
     <string name="food_name">음식 이름</string>
     <string name="food_amount">음식 수량</string>
     <string name="text_review">간단한 리뷰를 남겨주세요.</string>
+    <string name="add_button">추가</string>
 </resources>
