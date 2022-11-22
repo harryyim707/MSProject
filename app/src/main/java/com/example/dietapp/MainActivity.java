@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private MainMenuAnalisysFragment fragmentAnalysis = new MainMenuAnalisysFragment();
-    private MainMenyHomeFragment fragmentHome = new MainMenyHomeFragment();
+    private MainMenuHomeFragment fragmentHome = new MainMenuHomeFragment();
     private MainMenuCalendarFragment fragmentCalendar = new MainMenuCalendarFragment();
 
     @Override
