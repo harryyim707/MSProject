@@ -14,12 +14,14 @@
         android:theme="@style/Theme.DietApp"
         tools:targetApi="31">
         <activity
+            android:name=".dataFix"/>
+        <activity
+            android:name=".Analysis"/>
+        <activity
+            android:name=".Calendar"/>
+        <activity
             android:name=".food_data_input"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+            android:exported="false"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">

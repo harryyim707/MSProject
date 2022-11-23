@@ -4,10 +4,19 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/menu_item_color.xml" value="0.176" />
+        <entry key="app/src/main/res/layout/activity_add_data.xml" value="0.15163934426229508" />
+        <entry key="app/src/main/res/layout/activity_analysis.xml" value="0.15163934426229508" />
+        <entry key="app/src/main/res/layout/activity_calender.xml" value="0.15163934426229508" />
+        <entry key="app/src/main/res/layout/activity_data_fix.xml" value="0.125390625" />
+        <entry key="app/src/main/res/layout/activity_food_data_input.xml" value="0.15225067138671877" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.28868113558372915" />
-        <entry key="app/src/main/res/layout/fragment_main_menu_analisys.xml" value="0.115625" />
+        <entry key="app/src/main/res/layout/analysis_layout.xml" value="0.14549180327868852" />
+        <entry key="app/src/main/res/layout/fragment_main_menu_analisys.xml" value="0.26286010742187493" />
         <entry key="app/src/main/res/layout/fragment_main_menu_calendar.xml" value="0.126171875" />
+        <entry key="app/src/main/res/layout/fragment_main_menu_home.xml" value="0.251171875" />
         <entry key="app/src/main/res/layout/fragment_main_meny_home.xml" value="0.115625" />
+        <entry key="app/src/main/res/layout/main_menu_analisys.xml" value="0.125390625" />
+        <entry key="app/src/main/res/layout/main_menu_calendar.xml" value="0.125390625" />
         <entry key="app/src/main/res/menu/main_menu_bottom.xml" value="0.241015625" />
       </map>
     </option>
