@@ -1,14 +1,19 @@
 package com.example.dietapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.content.AsyncTaskLoader;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.jsoup.Jsoup;
@@ -18,13 +23,13 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class SelectFood extends AppCompatActivity {
-
-    private TextView foodName;
-    private ListView foodList = null;
-//    private ListViewAdapter adapter = null;
+    private ListView foodList;
+    String url;
+    ArrayList<SingleItem> itemList;
+    SingleItemAdapter adapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,87 +37,92 @@ public class SelectFood extends AppCompatActivity {
         setContentView(R.layout.activity_select_food);
 
         Intent intent = getIntent();
-        String url = intent.getStringExtra("link");
+        url = intent.getStringExtra("link");
         String name = intent.getStringExtra("name");
 
-        foodName = findViewById(R.id.foodToSrch);
-        foodName.setText(name);
+        foodList = findViewById(R.id.listView);
+        itemList = new ArrayList<SingleItem>();
 
-        foodList = findViewById(R.id.foodList);
-//        adapter = new ListViewAdapter();
+        NewThread newThread = new NewThread();
+        newThread.execute();
 
-        new Thread(){
+        foodList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void run(){
-                Document doc = null;
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent();
+                SingleItem item = itemList.get(position);
+                String res = item.getName()+","+item.getBrand()+","+item.getStandard().toString()+","+item.getWeight().toString()+","
+                        +item.getCalVal().toString()+","+item.getCarVal().toString()+","+item.getProVal().toString()+","+item.getFatVal().toString();
+                intent.putExtra("result", res);
+                setResult(Activity.RESULT_OK, intent);
                 try{
-                    doc = Jsoup.connect(url).get();
-                    Elements contents = doc.select("td.borderBottom");
-                    for(Element c : contents){
-                        String name = c.getElementsByClass("prominent").text();
-                        String brand = c.getElementsByClass("brand").text();
-                        Elements divTag = c.select("div");
-                        String[] info = divTag.text().split(" ",15);
-                        System.out.println(name+" "+brand+" ");
-
-                        String servingSize = info[0];
-                        String servingWeight = info[1];
-                        Integer standard = Integer.parseInt(servingSize.substring(0,1));
-                        int idx = servingWeight.indexOf("g");
-                        Integer weight = Integer.parseInt(servingWeight.substring(1,idx));
-
-                        String calories = info[4];
-                        int idx_cal = calories.indexOf("k");
-                        Integer cal = Integer.parseInt(calories.substring(0, idx_cal));
-
-                        String fats = info[7];
-                        int idx_fats = fats.indexOf("g");
-                        Float fat = Float.parseFloat(fats.substring(0, idx_fats));
-
-                        String carbo = info[10];
-                        int idx_carbo = carbo.indexOf("g");
-                        Float car = Float.parseFloat(carbo.substring(0, idx_carbo));
-
-                        String protein = info[13];
-                        int idx_pro = protein.indexOf("g");
-                        Float pro = Float.parseFloat(protein.substring(0, idx_pro));
-
-                        System.out.println(standard+" "+weight+" "+" "+cal+" "+fat+" "+car+" "+pro);
-//                        adapter.addItem(new FoodItem(name, brand));
+                    if(newThread.getStatus() == AsyncTask.Status.RUNNING){
+                        newThread.cancel(true);
                     }
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
-                    Log.d("test", "Error: "+e.toString());
                 }
+                finish();
             }
-        }.start();
+        });
     }
 
-//    private class ListViewAdapter extends BaseAdapter {
-//        ArrayList<FoodItem> items = new ArrayList<FoodItem>();
-//
-//        @Override
-//        public int getCount() {
-//            return items.size();
-//        }
-//
-//        public void addItem(FoodItem item){
-//            items.add(item);
-//        }
-//
-//        @Override
-//        public Object getItem(int position) {
-//            return items.get(position);
-//        }
-//
-//        @Override
-//        public long getItemId(int position) {
-//            return position;
-//        }
-//
-//        @Override
-//        public View getView(int position, View convertView, ViewGroup parent) {
-//            return null;
-//        }
-//    }
+
+    private class NewThread extends AsyncTask<String, Void, Void>{
+
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            try{
+                Document doc = Jsoup.connect(url).get();
+                Elements contents = doc.select("td.borderBottom");
+                for(Element c : contents){
+                    String name = c.getElementsByClass("prominent").text();
+                    String brand = c.getElementsByClass("brand").text();
+
+                    Elements divTag = c.select("div");
+                    String[] info = divTag.text().split(" ",15);
+
+                    String servingSize = info[0];
+                    String servingWeight = info[1];
+
+                    Integer standard = Integer.parseInt(servingSize.substring(0,1));
+                    int idx = servingWeight.indexOf("g");
+
+                    Integer weight = Integer.parseInt(servingWeight.substring(1,idx));
+
+                    String calories = info[4];
+                    int idx_cal = calories.indexOf("k");
+                    Integer cal = Integer.parseInt(calories.substring(0, idx_cal));
+
+                    String fats = info[7];
+                    int idx_fats = fats.indexOf("g");
+                    Float fat = Float.parseFloat(fats.substring(0, idx_fats));
+
+                    String carbo = info[10];
+                    int idx_carbo = carbo.indexOf("g");
+                    Float car = Float.parseFloat(carbo.substring(0, idx_carbo));
+
+                    String protein = info[13];
+                    int idx_pro = protein.indexOf("g");
+                    Float pro = Float.parseFloat(protein.substring(0, idx_pro));
+
+                    itemList.add(new SingleItem(name, brand, standard, weight, cal, car, pro, fat));
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result){
+            adapter = new SingleItemAdapter(itemList, getApplicationContext());
+            foodList.setAdapter(adapter);
+        }
+    }
 }

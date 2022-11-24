@@ -48,7 +48,8 @@
                     android:ems="10"
                     android:hint="@string/food_amount"
                     android:importantForAutofill="no"
-                    android:inputType="textPersonName"
+                    android:inputType="number"
+                    android:digits="0123456789"
                     android:textColorHint="#757575"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -114,8 +115,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
-                <EditText
-                    android:id="@+id/editTextTextPersonName6"
+                <TextView
+                    android:id="@+id/calval"
                     android:layout_width="80dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="16dp"
@@ -123,8 +124,7 @@
                     android:layout_marginBottom="16dp"
                     android:ems="10"
                     android:importantForAutofill="no"
-                    android:inputType="textPersonName"
-                    app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName7"
+                    app:layout_constraintBottom_toTopOf="@+id/proval"
                     app:layout_constraintStart_toEndOf="@+id/textView5"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck"
@@ -141,18 +141,17 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-                <EditText
-                    android:id="@+id/editTextTextPersonName7"
+                <TextView
+                    android:id="@+id/proval"
                     android:layout_width="80dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="17dp"
                     android:layout_marginBottom="16dp"
                     android:ems="10"
                     android:importantForAutofill="no"
-                    android:inputType="textPersonName"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textView7"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName6"
+                    app:layout_constraintTop_toBottomOf="@+id/calval"
                     tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck"
                     tools:targetApi="o" />
 
@@ -164,11 +163,11 @@
                     android:layout_marginBottom="14dp"
                     android:text="@string/fat"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName8"
+                    app:layout_constraintEnd_toStartOf="@+id/fatval"
                     app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
-                <EditText
-                    android:id="@+id/editTextTextPersonName9"
+                <TextView
+                    android:id="@+id/carval"
                     android:layout_width="80dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="42dp"
@@ -176,8 +175,7 @@
                     android:layout_marginBottom="20dp"
                     android:ems="10"
                     android:importantForAutofill="no"
-                    android:inputType="textPersonName"
-                    app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName8"
+                    app:layout_constraintBottom_toTopOf="@+id/fatval"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck"
@@ -192,21 +190,20 @@
                     android:layout_marginBottom="18dp"
                     android:text="@string/carbo"
                     app:layout_constraintBottom_toTopOf="@+id/textView8"
-                    app:layout_constraintEnd_toStartOf="@+id/editTextTextPersonName9"
+                    app:layout_constraintEnd_toStartOf="@+id/carval"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <EditText
-                    android:id="@+id/editTextTextPersonName8"
+                <TextView
+                    android:id="@+id/fatval"
                     android:layout_width="80dp"
                     android:layout_height="50dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="16dp"
                     android:ems="10"
                     android:importantForAutofill="no"
-                    android:inputType="textPersonName"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName9"
+                    app:layout_constraintTop_toBottomOf="@+id/carval"
                     tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck"
                     tools:targetApi="o" />
 

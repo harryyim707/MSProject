@@ -6,27 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".SelectFood">
 
-    <TextView
-        android:id="@+id/foodToSrch"
-        android:layout_width="wrap_content"
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="731dp"
-        app:layout_constraintBottom_toBottomOf="@id/foodToSrch"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/foodList"
-        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
