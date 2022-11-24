@@ -29,7 +29,7 @@
                 app:layout_constraintStart_toStartOf="@+id/button14">
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/foodInfo"
                     android:layout_width="134dp"
                     android:layout_height="17dp"
                     android:layout_marginStart="16dp"
@@ -72,13 +72,13 @@
                     android:layout_width="55dp"
                     android:layout_height="49dp"
                     android:background="#00FFFFFF"
+                    android:contentDescription="@string/searchBtn"
                     app:layout_constraintBottom_toTopOf="@+id/foodAmount"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/foodName"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.708"
-                    android:contentDescription="@string/searchBtn"
+                    app:layout_constraintVertical_bias="0.784"
                     app:srcCompat="@drawable/search" />
 
                 <EditText
@@ -86,6 +86,7 @@
                     android:layout_width="205dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="16dp"
+                    android:layout_marginBottom="16dp"
                     android:ems="10"
                     android:hint="@string/food_name"
                     android:importantForAutofill="no"
@@ -93,8 +94,8 @@
                     android:textColorHint="#00838F"
                     app:layout_constraintBottom_toTopOf="@+id/foodAmount"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2"
-                    app:layout_constraintVertical_bias="0.405"
+                    app:layout_constraintTop_toBottomOf="@+id/foodInfo"
+                    app:layout_constraintVertical_bias="0.952"
                     tools:targetApi="o" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
