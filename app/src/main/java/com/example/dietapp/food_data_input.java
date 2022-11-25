@@ -5,27 +5,17 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 public class food_data_input extends AppCompatActivity {
     String food;
-    private ImageButton srchBtn;
+    ImageButton srchBtn;
     private EditText foodName;
     private EditText foodAmount;
     private TextView calVal;
@@ -34,12 +24,18 @@ public class food_data_input extends AppCompatActivity {
     private TextView fatVal;
     private SingleItem item;
     private TextView nu;
+    EditText review;
+    EditText timeInput;
+    Button svBtn;
+    Button delBtn;
 
-    private Integer number;
-    private Integer tmpcal;
-    private Float tmpcar;
-    private Float tmppro;
-    private Float tmpfat;
+    Integer number;
+    Integer tmpcal;
+    Float tmpcar;
+    Float tmppro;
+    Float tmpfat;
+    String reviewStr;
+    String inputTime;
 
     String info;
 
@@ -57,6 +53,13 @@ public class food_data_input extends AppCompatActivity {
         proVal = (TextView) findViewById(R.id.proval);
         fatVal = (TextView) findViewById(R.id.fatval);
         nu=(TextView) findViewById(R.id.textView4);
+        review = (EditText) findViewById(R.id.foodReview);
+        timeInput = (EditText) findViewById(R.id.inputTime);
+        svBtn = (Button) findViewById(R.id.saveBtn);
+        delBtn = (Button) findViewById(R.id.delBtn);
+
+        reviewStr = review.getText().toString();
+        inputTime = timeInput.getText().toString();
 
 
 
@@ -100,13 +103,24 @@ public class food_data_input extends AppCompatActivity {
         tmppro = item.getProVal()*number;
         tmpfat = item.getCarVal()*number;
 
-        showChanges();
-    }
-
-    private void showChanges() {
         calVal.setText(""+tmpcal);
         carVal.setText(""+tmpcar);
         proVal.setText(""+tmppro);
         fatVal.setText(""+tmpfat);
+    }
+
+    protected void endOfSeq(){
+        svBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //save in db
+            }
+        });
+        delBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }

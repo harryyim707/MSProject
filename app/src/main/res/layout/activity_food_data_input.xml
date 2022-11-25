@@ -354,7 +354,7 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/delBtn"
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="209dp"
                     android:layout_height="wrap_content"
@@ -362,7 +362,7 @@
                     android:textColor="#795548" />
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/saveBtn"
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
