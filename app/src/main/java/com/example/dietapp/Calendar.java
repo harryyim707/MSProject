@@ -7,6 +7,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CalendarView;
+import android.widget.TextView;
+import androidx.annotation.NonNull;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -35,5 +42,27 @@ public class Calendar extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.activity_calender, container, false);
+
+        try{
+            final TextView textView = findViewById(R.id.todayDate);
+            CalendarView calendarView =  findViewById(R.id.calendarView);
+
+            calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+                @Override
+                public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                    month += 1;
+
+                    textView.setText(String.format("%d.%d.%d.", year, month, dayOfMonth));
+                }
+            }); } catch(NullPointerException e){
+            Log.d("Android App : ", "오류");
+        };
+        return rootView;
     }
 }

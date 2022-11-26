@@ -18,6 +18,7 @@
     <string name="food_amount">음식 수량</string>
     <string name="text_review">간단한 리뷰를 남겨주세요.</string>
     <string name="add_button">추가</string>
+
     <string name="Home">Home</string>
     <string name="Analysis">Analysis</string>
     <string name="Calendar">Calendar</string>
@@ -27,5 +28,9 @@
     <string name="fatinfo">지방 정보</string>
     <string name="proinfo">단백질 정보</string>
     <string name="carboinfo">탄수화물 정보</string>
+
+
+    <string name="camera_btn">카메라</string>
+    <string name="todayDate">today</string>
 
 </resources>
