@@ -12,30 +12,25 @@ public class DBManager extends SQLiteOpenHelper {
     Context context = null;
     private static DBManager dbManager = null;
     static final int DB_VERSION = 1;
-    static final String DB = "db";
+    static final String DB = "Nutrition.db";
     static final String TABLE_NAME = "Nutrition";
     static final String COLUMN_ID = "id";
+    static final String COLUMN_WHEN = "meal";
     static final String COLUMN_NAME = "name";
     static final String COLUMN_CAL = "calories";
-    static final String COLUMN_CAR = "cabohydrate";
+    static final String COLUMN_CAR = "carbohydrate";
     static final String COLUMN_PRO = "protein";
     static final String COLUMN_FAT = "fat";
     static final String COLUMN_REVIEW = "review";
+    static final String COLUMN_DATE = "mealdate";
     static final String COLUMN_TIME = "mealtime";
     static final String COLUMN_IMG_DIR = "img_dir";
     static final String COLUMN_ADDRESS = "address";
 
 
-    static final String CREATE_DB = "CREATE TABLE IF NOT EXISTS "+ TABLE_NAME+" ("+ COLUMN_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+
-            COLUMN_NAME+" TEXT NOT NULL, "+COLUMN_CAL+" INTEGER NOT NULL, "+COLUMN_CAR+" REAL NOT NULL, "+COLUMN_PRO+" REAL NOT NULL, "+
-            COLUMN_FAT+" REAL NOT NULL, "+COLUMN_REVIEW+" TEXT, "+COLUMN_TIME+" TEXT, "+COLUMN_IMG_DIR+" TEXT, "+COLUMN_ADDRESS+" TEXT);";
-
-    public static DBManager getInstance(Context context){
-        if(dbManager == null){
-            dbManager = new DBManager(context, DB, null, DB_VERSION);
-        }
-        return dbManager;
-    }
+    static final String CREATE_DB = "CREATE TABLE IF NOT EXISTS "+ TABLE_NAME+" ("+ COLUMN_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+COLUMN_WHEN
+            +" INTEGER NOT NULL, "+COLUMN_NAME+" TEXT NOT NULL, "+COLUMN_CAL+" INTEGER NOT NULL, "+COLUMN_CAR+" REAL NOT NULL, "+COLUMN_PRO+" REAL NOT NULL, "+
+            COLUMN_FAT+" REAL NOT NULL, "+COLUMN_REVIEW+" TEXT, "+COLUMN_DATE+" TEXT, "+COLUMN_TIME+" TEXT, "+COLUMN_IMG_DIR+" TEXT, "+COLUMN_ADDRESS+" TEXT);";
 
     public DBManager(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -54,19 +49,24 @@ public class DBManager extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if(newVersion>DB_VERSION){
-            db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
-            db.execSQL("CREATE TABLE IF NOT EXISTS "+TABLE_NAME);
-        }
+        db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
+        db.execSQL("CREATE TABLE IF NOT EXISTS "+TABLE_NAME);
     }
-
-    public long insert(ContentValues addValue){
-        return getWritableDatabase().insert(TABLE_NAME, null, addValue);
-    }
-    public Cursor query(String [] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy){
-        return getReadableDatabase().query(TABLE_NAME, columns, selection, selectionArgs, groupBy, having, orderBy);
-    }
-    public int delete(String whereClause, String[] whereArgs){
-        return getWritableDatabase().delete(TABLE_NAME, whereClause, whereArgs);
+    public void insertData(String name, int when, int cal, double car, double pro, double fat, @Nullable String review,
+                           @Nullable String dateInfo, @Nullable String timeInfo, @Nullable String imgDir, @Nullable String address){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues addValues = new ContentValues();
+        addValues.put(DBManager.COLUMN_NAME, name);
+        addValues.put(DBManager.COLUMN_WHEN, when);
+        addValues.put(DBManager.COLUMN_CAL, cal);
+        addValues.put(DBManager.COLUMN_CAR, car);
+        addValues.put(DBManager.COLUMN_PRO, pro);
+        addValues.put(DBManager.COLUMN_FAT, fat);
+        addValues.put(DBManager.COLUMN_REVIEW, review);
+        addValues.put(DBManager.COLUMN_DATE, dateInfo);
+        addValues.put(DBManager.COLUMN_TIME, timeInfo);
+        addValues.put(DBManager.COLUMN_IMG_DIR, imgDir);
+        addValues.put(DBManager.COLUMN_ADDRESS, address);
+        db.insert(DBManager.TABLE_NAME,null,addValues);
     }
 }

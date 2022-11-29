@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.ContentValues;
 import android.content.Intent;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -60,16 +62,19 @@ public class food_data_input extends AppCompatActivity {
     Float tmpfat;
     String reviewStr;
     String inputTime;
-    String imgDir; //여기에 이미지 디렉토리 저장
-    String address; //여기에 위치 정보 저장
+    String imgDir = "null"; //여기에 이미지 디렉토리 저장
+    String address = "null"; //여기에 위치 정보 저장
+    String dateInfo;
     String timeInfo;
+    int when;
 
     String info;
     ImageView imageView;
     File file;
     Uri uri;
-    ContentValues addValues;
     SimpleDateFormat format;
+
+    DBManager dbManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +94,9 @@ public class food_data_input extends AppCompatActivity {
         svBtn = (Button) findViewById(R.id.saveBtn);
         delBtn = (Button) findViewById(R.id.delBtn);
         apply = (Button)findViewById(R.id.apply);
-
+        Intent intent = getIntent();
+        when = intent.getExtras().getInt("meal");
+        dbManager = new DBManager(this, DBManager.DB, null, DBManager.DB_VERSION);
 
         srchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,7 +114,6 @@ public class food_data_input extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String str = foodAmount.getText().toString();
-                System.out.println(str);
                 if(!str.equals("")){
                     number = Integer.parseInt(str);
                     tmpcal = item.getCalVal() * number;
@@ -126,10 +132,11 @@ public class food_data_input extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 reviewStr = review.getText().toString();
-
+                if(reviewStr.equals("")) reviewStr=null;
                 Date currentTime = Calendar.getInstance().getTime();
-                format = new SimpleDateFormat("yyyy-mm-dd hh:mm", Locale.getDefault());
-                String current = format.format(currentTime);
+                format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                dateInfo = format.format(currentTime);
+                System.out.println(dateInfo);
                 inputTime = timeInput.getText().toString();
                 if(!inputTime.equals("")){
                     String[] t = inputTime.split(":");
@@ -143,25 +150,14 @@ public class food_data_input extends AppCompatActivity {
                             t[1] = "0"+tmp;
                         }
                     }
-                    String[] cT = current.split(" ");
-                    cT[1] = t[0]+t[1];
-                    timeInfo = cT[0]+cT[1];
+                    timeInfo = t[0]+t[1];
                 }
                 else {
-                    timeInfo = current;
+                    timeInfo = null;
                 }
 
                 //save in db
-                addValues = new ContentValues();
-                addValues.put(DBProvider.NAME, item.getName());
-                addValues.put(DBProvider.CAL, ""+tmpcal);
-                addValues.put(DBProvider.CAR, ""+tmpcar);
-                addValues.put(DBProvider.PRO, ""+tmppro);
-                addValues.put(DBProvider.FAT, ""+tmpfat);
-                addValues.put(DBProvider.REVIEW, reviewStr);
-                addValues.put(DBProvider.TIME, timeInfo);
-//                addValues.put(DBProvider.IMG, imgDir);
-//                addValues.put(DBProvider.ADDRESS, address);
+                dbManager.insertData(item.getName(), when, tmpcal, tmpcar, tmppro, tmpfat, reviewStr, dateInfo, timeInfo, imgDir, address);
                 finish();
             }
         });
@@ -195,6 +191,7 @@ public class food_data_input extends AppCompatActivity {
                         item = new SingleItem(tmp[0], tmp[1], Integer.parseInt(tmp[2]), Integer.parseInt(tmp[3]),
                                 Integer.parseInt(tmp[4]), Float.parseFloat(tmp[5]), Float.parseFloat(tmp[6]), Float.parseFloat(tmp[7]));
                         nu.setText("" + item.getStandard() + " 개/ " + item.getWeight() + " g 당 영양성분");
+                        foodName.setText(item.getName());
                         calVal.setText("" + item.getCalVal());
                         carVal.setText("" + item.getCarVal());
                         proVal.setText("" + item.getProVal());

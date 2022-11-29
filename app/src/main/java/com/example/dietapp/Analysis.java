@@ -17,23 +17,6 @@ public class Analysis extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_analysis);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.menu_bottom_navigation);
-        bottomNavigationView.setSelectedItemId(R.id.menu_analysis);
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.menu_analysis:
-                        return true;
-                    case R.id.menu_home:
-                        startActivity(new Intent(Analysis.this, MainActivity.class));
-                        return true;
-                    case R.id.menu_calendar:
-                        startActivity(new Intent(Analysis.this, Calendar.class));
-                        return true;
-                }
-                return false;
-            }
-        });
+
     }
 }
