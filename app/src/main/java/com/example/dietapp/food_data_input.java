@@ -1,5 +1,7 @@
 package com.example.dietapp;
 
+import static android.os.Environment.DIRECTORY_PICTURES;
+
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -13,9 +15,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -33,6 +38,8 @@ import androidx.core.content.FileProvider;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -69,13 +76,19 @@ public class food_data_input extends AppCompatActivity {
     int when;
 
     String info;
+    private static final int REQUEST_IMAGE_CAPTURE = 672;
+    private String imageFilePath;
+    private Uri photoUri;
+
+    // 갤러리 폴더에 바로 반영사항을 업데이트 (미디어 스캐닝)
+    private MediaScanner mMediaScanner;
     ImageView imageView;
     File file;
     Uri uri;
     SimpleDateFormat format;
 
     DBManager dbManager;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +106,8 @@ public class food_data_input extends AppCompatActivity {
         timeInput = (EditText) findViewById(R.id.inputTime);
         svBtn = (Button) findViewById(R.id.saveBtn);
         delBtn = (Button) findViewById(R.id.delBtn);
+         // 사진 저장 후 미디어 스캐닝, 갤러리에 반영
+        mMediaScanner = MediaScanner.getInstance(getApplicationContext());
         apply = (Button)findViewById(R.id.apply);
         Intent intent = getIntent();
         when = intent.getExtras().getInt("meal");
@@ -177,6 +192,25 @@ public class food_data_input extends AppCompatActivity {
                 takePicture();
             }
         });
+        findViewById(R.id.cameraBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    File photoFile = null;
+                    try {
+                        photoFile = createImageFile();
+                    } catch (IOException e) {
+
+                    }
+                    if (photoFile != null) {
+                        photoUri = FileProvider.getUriForFile(getApplicationContext(), getPackageName(), photoFile);
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+                        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+                    }
+                }
+            }
+        });
     }
 
     ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -199,54 +233,97 @@ public class food_data_input extends AppCompatActivity {
                     }
                 }
             });
-
-    public void takePicture() {
-
-        try {
-            file = createFile();
-
-            if (file.exists()) {
-                file.delete();
-            }
-            file.createNewFile();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        if (Build.VERSION.SDK_INT >= 24) {
-            uri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID, file);
-
-        } else {
-            uri = Uri.fromFile(file);
-        }
-
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-
-        startActivityForResult(intent, 101);
+    private File createImageFile() throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "TEST_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,
+                ".jpg",
+                storageDir
+        );
+        imageFilePath = image.getAbsolutePath();
+        return image;
     }
-
-    private File createFile() {
-        String filename = "capture.jpg";
-        File outFile = new File(getFilesDir(), filename);
-        Log.d("Main", "File path : " + outFile.getAbsolutePath());
-
-        return outFile;
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
-        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bitmap bitmap = BitmapFactory.decodeFile(imageFilePath);
+            ExifInterface exif = null;
 
-        if (requestCode == 101 && resultCode == RESULT_OK) {
             try {
-                Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
-                imageView.setImageBitmap(bitmap);
+                exif = new ExifInterface(imageFilePath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            int exifOrientation;
+            int exifDegree;
+
+            if (exif != null) {
+                exifOrientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+                exifDegree = exifOrientationToDegrees(exifOrientation);
+            } else {
+                exifDegree = 0;
+            }
+
+            String result = "";
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HHmmss", Locale.getDefault());
+            Date curDate = new Date(System.currentTimeMillis());
+            String filename = formatter.format(curDate);
+
+            String strFolderName = Environment.getExternalStoragePublicDirectory(DIRECTORY_PICTURES) + File.separator + "DietApp" + File.separator;
+            File file = new File(strFolderName);
+            if (!file.exists())
+                file.mkdirs();
+
+            File f = new File(strFolderName + "/" + filename + ".png");
+            result = f.getPath();
+
+            FileOutputStream fOut = null;
+            try {
+                fOut = new FileOutputStream(f);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
+                result = "Save Error fOut";
             }
+
+            // 비트맵 사진 폴더 경로에 저장
+            rotate(bitmap, exifDegree).compress(Bitmap.CompressFormat.PNG, 70, fOut);
+
+            try {
+                fOut.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                fOut.close();
+                // 방금 저장된 사진을 갤러리 폴더
+                mMediaScanner.mediaScanning(strFolderName + "/" + filename + ".png");
+            } catch (IOException e) {
+                e.printStackTrace();
+                result = "File close Error";
+            }
+
+            // 이미지 뷰에 비트맵 set해서 이미지 나타내기
+            imageView.setImageBitmap(rotate(bitmap, exifDegree));
         }
+
     }
+       
+    private int exifOrientationToDegrees(int exifOrientation) {
+        if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_90) {
+            return 90;
+        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_180) {
+            return 180;
+        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_270) {
+            return 270;
+        }
+        return 0;
+    }
+    private Bitmap rotate(Bitmap bitmap, float degree) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degree);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+    }
+
 }
