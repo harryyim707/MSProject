@@ -28,8 +28,7 @@
     <string name="fatinfo">지방 정보</string>
     <string name="proinfo">단백질 정보</string>
     <string name="carboinfo">탄수화물 정보</string>
-
-
+    <string name="seeMore">더보기</string>
     <string name="camera_btn">카메라</string>
     <string name="todayDate">today</string>
 

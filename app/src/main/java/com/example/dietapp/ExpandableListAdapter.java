@@ -1,6 +1,7 @@
 package com.example.dietapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,7 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public ExpandableListAdapter(List<Item> data) {
         this.data = data;
     }
+
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int type) {
@@ -56,7 +60,7 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             case HEADER:
                 final ListHeaderViewHolder itemController = (ListHeaderViewHolder) holder;
                 itemController.refferalItem = item;
-                itemController.header_title.setText(item.text);
+                itemController.header_title.setText(item.name);
                 if (item.invisibleChildren == null) {
                     itemController.btn_expand_toggle.setImageResource(R.drawable.arrow_up);
                 } else {
@@ -91,7 +95,13 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 break;
             case CHILD:
                 TextView itemTextView = (TextView) holder.itemView;
-                itemTextView.setText(data.get(position).text);
+                itemTextView.setText(data.get(position).name);
+                itemTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent();
+                    }
+                });
                 break;
         }
     }
@@ -121,15 +131,21 @@ public class ExpandableListAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     public static class Item {
         public int type;
-        public String text;
+        public String name;
+        public String car;
+        public String pro;
+        public String fat;
         public List<Item> invisibleChildren;
 
         public Item() {
         }
 
-        public Item(int type, String text) {
+        public Item(int type, String text, String car, String pro, String fat) {
             this.type = type;
-            this.text = text;
+            this.name = text;
+            this.car = car;
+            this.pro = pro;
+            this.fat = fat;
         }
     }
 }

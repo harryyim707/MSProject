@@ -2,10 +2,14 @@ package com.example.dietapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -13,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -34,12 +39,17 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView1;
     private RecyclerView recyclerView2;
     private RecyclerView recyclerView3;
+    TextView sumBr;
+    TextView sumLc;
+    TextView sumDn;
+
 
     SimpleDateFormat format;
     String today;
-    int i = 0;
     DBManager dbManager;
     SQLiteDatabase db = null;
+
+    private static final int REQUEST_IMAGE_CAPTURE = 672;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +57,42 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         dbManager = new DBManager(this, DBManager.DB, null, DBManager.DB_VERSION);
         db = dbManager.getWritableDatabase();
+        int permssionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+        if (permssionCheck!= PackageManager.PERMISSION_GRANTED) {
+
+            Toast.makeText(this,"권한 승인이 필요합니다",Toast.LENGTH_LONG).show();
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.CAMERA)) {
+                Toast.makeText(this,"카메라 권한이 필요합니다.",Toast.LENGTH_LONG).show();
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.CAMERA},
+                        REQUEST_IMAGE_CAPTURE);
+                Toast.makeText(this,"카메라 권한이 필요합니다.",Toast.LENGTH_LONG).show();
+
+            }
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST_IMAGE_CAPTURE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    Toast.makeText(this, "승인이 허가되어 있습니다.", Toast.LENGTH_LONG).show();
+
+                } else {
+                    Toast.makeText(this, "아직 승인받지 않았습니다.", Toast.LENGTH_LONG).show();
+                }
+                return;
+            }
+
+        }
     }
 
     @Override
@@ -101,12 +147,10 @@ public class MainActivity extends AppCompatActivity {
         });
         //get DB
         getDB();
-        showName();
+        showList();
     }
 
     private void getDB() {
-        System.out.println(i);
-        i++;
         Date currentTime = java.util.Calendar.getInstance().getTime();
         format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         today = format.format(currentTime);
@@ -123,10 +167,10 @@ public class MainActivity extends AppCompatActivity {
         double sumFat = 0;
         if(c!=null){
             while (c.moveToNext()){
-                sumCal += c.getInt(0);
-                sumCar += c.getDouble(1);
-                sumPro += c.getDouble(2);
-                sumFat += c.getDouble(3);
+                sumCal = c.getInt(0);
+                sumCar = c.getDouble(1);
+                sumPro = c.getDouble(2);
+                sumFat = c.getDouble(3);
             }
             calVal.setText(String.format("%d", sumCal));
             carVal.setText(String.format("%.2f", sumCar));
@@ -139,38 +183,65 @@ public class MainActivity extends AppCompatActivity {
             proVal.setText("");
             fatVal.setText("");
         }
+        sumBr = (TextView) findViewById(R.id.sumBr);
+        Cursor cb = db.rawQuery("select sum(calories) from nutrition where mealdate =? and meal=?", new String[]{today, "1"});
+        int brSum = 0;
+        if(cb!=null){
+            while(cb.moveToNext()){
+                brSum = cb.getInt(0);
+            }
+            sumBr.setText(String.format("%d kcal", brSum));
+        }
+        sumLc = (TextView) findViewById(R.id.sumLc);
+        Cursor cl = db.rawQuery("select sum(calories) from nutrition where mealdate =? and meal=?", new String[]{today, "2"});
+        int lcSum = 0;
+        if(cl!=null){
+            while(cl.moveToNext()){
+                lcSum = cl.getInt(0);
+            }
+            sumLc.setText(String.format("%d kcal", lcSum));
+        }
+        sumDn = (TextView) findViewById(R.id.sumDn);
+        Cursor cd = db.rawQuery("select sum(calories) from nutrition where mealdate =? and meal=?", new String[]{today, "3"});
+        int dnSum = 0;
+        if(cd!=null){
+            while(cd.moveToNext()){
+                dnSum = cd.getInt(0);
+            }
+            sumDn.setText(String.format("%d kcal", dnSum));
+        }
     }
-    private void showName(){
+    private void showList(){
         recyclerView1 = (RecyclerView) findViewById(R.id.recyclerview1);
         recyclerView1.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         List<ExpandableListAdapter.Item> data1 = new ArrayList<>();
-        data1.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "Meal List"));
-        Cursor c = db.rawQuery("select "+DBManager.COLUMN_NAME+" from "+DBManager.TABLE_NAME+
+        data1.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "Meal List", "", "", ""));
+        Cursor c = db.rawQuery("select name, carbohydrate, protein, fat"+" from "+DBManager.TABLE_NAME+
                 " where "+DBManager.COLUMN_WHEN+"=?", new String[]{"1"});
         while(c.moveToNext()){
-            data1.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, c.getString(0)));
+            data1.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, c.getString(0), c.getString(1), c.getString(2), c.getString(3)));
         }
         recyclerView1.setAdapter(new ExpandableListAdapter(data1));
 
         recyclerView2 = (RecyclerView) findViewById(R.id.recyclerview2);
         recyclerView2.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         List<ExpandableListAdapter.Item> data2 = new ArrayList<>();
-        data2.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "Meal List"));
-        Cursor c2 = db.rawQuery("select "+DBManager.COLUMN_NAME+" from "+DBManager.TABLE_NAME+
+        data2.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "Meal List", "","",""));
+        Cursor c2 = db.rawQuery("select name, carbohydrate, protein, fat from "+DBManager.TABLE_NAME+
                 " where "+DBManager.COLUMN_WHEN+"=?", new String[]{"2"});
         while(c2.moveToNext()){
-            data2.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, c2.getString(0)));
+            data2.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, c2.getString(0), c2.getString(1), c2.getString(2), c2.getString(3)));
         }
         recyclerView2.setAdapter(new ExpandableListAdapter(data2));
 
         recyclerView3 = (RecyclerView) findViewById(R.id.recyclerview3);
         recyclerView3.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         List<ExpandableListAdapter.Item> data3 = new ArrayList<>();
-        data3.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "Meal List"));
-        Cursor c3 = db.rawQuery("select "+DBManager.COLUMN_NAME+" from "+DBManager.TABLE_NAME+
+        data3.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "Meal List", "","",""));
+        Cursor c3 = db.rawQuery("select name, carbohydrate, protein, fat from "+DBManager.TABLE_NAME+
                 " where "+DBManager.COLUMN_WHEN+"=?", new String[]{"3"});
         while(c3.moveToNext()){
-            data3.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, c3.getString(0)));
+            data3.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, c3.getString(0), c3.getString(1), c3.getString(2), c3.getString(3)));
         }
         recyclerView3.setAdapter(new ExpandableListAdapter(data3));
 
