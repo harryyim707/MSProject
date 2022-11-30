@@ -42,12 +42,14 @@
 
                 <Button
                     android:id="@+id/cameraBtn"
-                    android:layout_width="63dp"
-                    android:layout_height="36dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
                     android:text="@string/add_button"
                     android:textSize="10sp"
-                    tools:layout_editor_absoluteX="321dp"
-                    tools:layout_editor_absoluteY="132dp" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -75,28 +77,15 @@
                     android:layout_height="50dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginBottom="16dp"
-                    android:digits="0123456789"
                     android:ems="10"
                     android:hint="@string/food_amount"
                     android:importantForAutofill="no"
                     android:inputType="number"
+                    android:digits="0123456789"
                     android:textColorHint="#757575"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     tools:targetApi="o" />
-
-                <TextView
-                    android:id="@+id/textView9"
-                    android:layout_width="69dp"
-                    android:layout_height="22dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="24dp"
-                    android:text="@string/food_count"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/foodAmount" />
 
                 <ImageButton
                     android:id="@+id/searchBtn"
@@ -129,6 +118,16 @@
                     app:layout_constraintVertical_bias="0.952"
                     tools:targetApi="o" />
 
+                <Button
+                    android:id="@+id/apply"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/apply"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/foodAmount" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -147,16 +146,15 @@
 
                 <TextView
                     android:id="@+id/calval"
-                    android:layout_width="80dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="42dp"
-                    android:layout_marginBottom="16dp"
-                    android:ems="10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:importantForAutofill="no"
                     app:layout_constraintBottom_toTopOf="@+id/proval"
+                    app:layout_constraintEnd_toStartOf="@+id/textView6"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/textView5"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.536"
                     tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck"
                     tools:targetApi="o" />
 
@@ -173,15 +171,12 @@
 
                 <TextView
                     android:id="@+id/proval"
-                    android:layout_width="80dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="17dp"
-                    android:layout_marginBottom="16dp"
-                    android:ems="10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="36dp"
                     android:importantForAutofill="no"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textView7"
-                    app:layout_constraintTop_toBottomOf="@+id/calval"
                     tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck"
                     tools:targetApi="o" />
 
@@ -189,24 +184,24 @@
                     android:id="@+id/textView8"
                     android:layout_width="80dp"
                     android:layout_height="40dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginEnd="120dp"
                     android:layout_marginBottom="14dp"
                     android:text="@string/fat"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/fatval"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
                 <TextView
                     android:id="@+id/carval"
-                    android:layout_width="80dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="42dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:ems="10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="32dp"
                     android:importantForAutofill="no"
                     app:layout_constraintBottom_toTopOf="@+id/fatval"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/textView6"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck"
                     tools:targetApi="o" />
@@ -216,23 +211,23 @@
                     android:layout_width="80dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="42dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginEnd="120dp"
                     android:layout_marginBottom="18dp"
                     android:text="@string/carbo"
                     app:layout_constraintBottom_toTopOf="@+id/textView8"
-                    app:layout_constraintEnd_toStartOf="@+id/carval"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/fatval"
-                    android:layout_width="80dp"
-                    android:layout_height="50dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginBottom="16dp"
-                    android:ems="10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="32dp"
                     android:importantForAutofill="no"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/textView8"
                     app:layout_constraintTop_toBottomOf="@+id/carval"
                     tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck"
                     tools:targetApi="o" />

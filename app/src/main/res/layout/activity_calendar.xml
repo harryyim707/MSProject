@@ -69,44 +69,41 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textView18"
+                        android:id="@+id/brCal"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:text="TextView" />
+                        android:text="TextView"
+                        android:textAlignment="center" />
 
                     <TextView
-                        android:id="@+id/textView14"
+                        android:id="@+id/brCar"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:text="TextView" />
+                        android:text="TextView"
+                        android:textAlignment="center" />
 
                     <TextView
-                        android:id="@+id/textView13"
+                        android:id="@+id/brPro"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:text="TextView" />
+                        android:text="TextView"
+                        android:textAlignment="center" />
 
                     <TextView
-                        android:id="@+id/textView11"
+                        android:id="@+id/brFat"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:text="TextView" />
+                        android:text="TextView"
+                        android:textAlignment="center" />
 
-                    <TextView
-                        android:id="@+id/textView12"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:text="TextView" />
                 </LinearLayout>
 
                 <TextView
@@ -122,44 +119,41 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textView19"
+                        android:id="@+id/lcCal"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:text="TextView" />
+                        android:text="TextView"
+                        android:textAlignment="center" />
 
                     <TextView
-                        android:id="@+id/textView20"
+                        android:id="@+id/lcCar"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:text="TextView" />
+                        android:text="TextView"
+                        android:textAlignment="center" />
 
                     <TextView
-                        android:id="@+id/textView21"
+                        android:id="@+id/lcPro"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:text="TextView" />
+                        android:text="TextView"
+                        android:textAlignment="center" />
 
                     <TextView
-                        android:id="@+id/textView22"
+                        android:id="@+id/lcFat"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:text="TextView" />
+                        android:text="TextView"
+                        android:textAlignment="center" />
 
-                    <TextView
-                        android:id="@+id/textView23"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:text="TextView" />
                 </LinearLayout>
 
                 <TextView
@@ -175,44 +169,41 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/textView19"
+                        android:id="@+id/dnCal"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:text="TextView" />
+                        android:text="TextView"
+                        android:textAlignment="center" />
 
                     <TextView
-                        android:id="@+id/textView20"
+                        android:id="@+id/dnCar"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:text="TextView" />
+                        android:text="TextView"
+                        android:textAlignment="center" />
 
                     <TextView
-                        android:id="@+id/textView21"
+                        android:id="@+id/dnPro"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:text="TextView" />
+                        android:text="TextView"
+                        android:textAlignment="center" />
 
                     <TextView
-                        android:id="@+id/textView22"
+                        android:id="@+id/dnFat"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:text="TextView" />
+                        android:text="TextView"
+                        android:textAlignment="center" />
 
-                    <TextView
-                        android:id="@+id/textView23"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:text="TextView" />
                 </LinearLayout>
 
             </LinearLayout>

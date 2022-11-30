@@ -22,7 +22,7 @@ public class Calendar extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calender);
+        setContentView(R.layout.activity_calendar);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.menu_bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.menu_calendar);
@@ -47,7 +47,7 @@ public class Calendar extends AppCompatActivity {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.activity_calender, container, false);
+        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.activity_calendar, container, false);
 
         try{
             final TextView textView = findViewById(R.id.todayDate);

@@ -7,8 +7,12 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.ContentValues;
 import android.content.Intent;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -24,14 +28,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 
@@ -40,6 +41,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -58,6 +60,7 @@ public class food_data_input extends AppCompatActivity {
     EditText timeInput;
     Button svBtn;
     Button delBtn;
+    Button apply;
 
     Integer number;
     Integer tmpcal;
@@ -66,22 +69,30 @@ public class food_data_input extends AppCompatActivity {
     Float tmpfat;
     String reviewStr;
     String inputTime;
+    String imgDir = "null"; //여기에 이미지 디렉토리 저장
+    String address = "null"; //여기에 위치 정보 저장
+    String dateInfo;
+    String timeInfo;
+    int when;
 
     String info;
-
     private static final int REQUEST_IMAGE_CAPTURE = 672;
     private String imageFilePath;
     private Uri photoUri;
 
     // 갤러리 폴더에 바로 반영사항을 업데이트 (미디어 스캐닝)
     private MediaScanner mMediaScanner;
-
     ImageView imageView;
+    File file;
+    Uri uri;
+    SimpleDateFormat format;
+
+    DBManager dbManager;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_data_input);
-
 
         srchBtn = (ImageButton) findViewById(R.id.searchBtn);
         foodName = (EditText) findViewById(R.id.foodName);
@@ -95,25 +106,92 @@ public class food_data_input extends AppCompatActivity {
         timeInput = (EditText) findViewById(R.id.inputTime);
         svBtn = (Button) findViewById(R.id.saveBtn);
         delBtn = (Button) findViewById(R.id.delBtn);
-
-        reviewStr = review.getText().toString();
-        inputTime = timeInput.getText().toString();
-
-        // 사진 저장 후 미디어 스캐닝, 갤러리에 반영
+         // 사진 저장 후 미디어 스캐닝, 갤러리에 반영
         mMediaScanner = MediaScanner.getInstance(getApplicationContext());
+        apply = (Button)findViewById(R.id.apply);
+        Intent intent = getIntent();
+        when = intent.getExtras().getInt("meal");
+        dbManager = new DBManager(this, DBManager.DB, null, DBManager.DB_VERSION);
 
         srchBtn.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                   food = foodName.getText().toString();
-                   String url = "https://www.fatsecret.kr/칼로리-영양소/search?q=" + food;
-                   Intent selectFood = new Intent(food_data_input.this, SelectFood.class);
-                   selectFood.putExtra("link", url);
-                   selectFood.putExtra("name", food);
-                   launcher.launch(selectFood);
-               }
+            @Override
+            public void onClick(View v) {
+                food = foodName.getText().toString();
+                String url = "https://www.fatsecret.kr/칼로리-영양소/search?q=" + food;
+                Intent selectFood = new Intent(food_data_input.this, SelectFood.class);
+                selectFood.putExtra("link", url);
+                selectFood.putExtra("name", food);
+                launcher.launch(selectFood);
+            }
         });
 
+        apply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String str = foodAmount.getText().toString();
+                if(!str.equals("")){
+                    number = Integer.parseInt(str);
+                    tmpcal = item.getCalVal() * number;
+                    tmpcar = item.getCarVal() * number;
+                    tmppro = item.getProVal() * number;
+                    tmpfat = item.getCarVal() * number;
+                    calVal.setText("" + tmpcal);
+                    carVal.setText("" + tmpcar);
+                    proVal.setText("" + tmppro);
+                    fatVal.setText("" + tmpfat);
+                }
+            }
+        });
+
+        svBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reviewStr = review.getText().toString();
+                if(reviewStr.equals("")) reviewStr=null;
+                Date currentTime = Calendar.getInstance().getTime();
+                format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                dateInfo = format.format(currentTime);
+                System.out.println(dateInfo);
+                inputTime = timeInput.getText().toString();
+                if(!inputTime.equals("")){
+                    String[] t = inputTime.split(":");
+                    if(Integer.parseInt(t[0])<10 || Integer.parseInt(t[1])<10){
+                        if(Integer.parseInt(t[0])<10){
+                            int tmp = Integer.parseInt(t[0]);
+                            t[0] = "0"+tmp;
+                        }
+                        if(Integer.parseInt(t[1])<10){
+                            int tmp = Integer.parseInt(t[1]);
+                            t[1] = "0"+tmp;
+                        }
+                    }
+                    timeInfo = t[0]+t[1];
+                }
+                else {
+                    timeInfo = null;
+                }
+
+                //save in db
+                dbManager.insertData(item.getName(), when, tmpcal, tmpcar, tmppro, tmpfat, reviewStr, dateInfo, timeInfo, imgDir, address);
+                finish();
+            }
+        });
+        delBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        imageView = findViewById(R.id.imageView);
+
+        Button button = findViewById(R.id.cameraBtn);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                takePicture();
+            }
+        });
         findViewById(R.id.cameraBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,63 +215,24 @@ public class food_data_input extends AppCompatActivity {
 
     ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
-            @Override
-            public void onActivityResult(ActivityResult result) {
-                if (result.getResultCode() == RESULT_OK) {
-                    Intent intent = result.getData();
-                    info = intent.getStringExtra("result");
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == RESULT_OK) {
+                        Intent intent = result.getData();
+                        info = intent.getStringExtra("result");
 
-                    String[] tmp = info.split(",");
-                    item = new SingleItem(tmp[0], tmp[1], Integer.parseInt(tmp[2]), Integer.parseInt(tmp[3]),
-                            Integer.parseInt(tmp[4]), Float.parseFloat(tmp[5]), Float.parseFloat(tmp[6]), Float.parseFloat(tmp[7]));
-                    nu.setText("" + item.getStandard() + " 개/ " + item.getWeight() + " g 당 영양성분");
-                    AfterFoodInput();
+                        String[] tmp = info.split(",");
+                        item = new SingleItem(tmp[0], tmp[1], Integer.parseInt(tmp[2]), Integer.parseInt(tmp[3]),
+                                Integer.parseInt(tmp[4]), Float.parseFloat(tmp[5]), Float.parseFloat(tmp[6]), Float.parseFloat(tmp[7]));
+                        nu.setText("" + item.getStandard() + " 개/ " + item.getWeight() + " g 당 영양성분");
+                        foodName.setText(item.getName());
+                        calVal.setText("" + item.getCalVal());
+                        carVal.setText("" + item.getCarVal());
+                        proVal.setText("" + item.getProVal());
+                        fatVal.setText("" + item.getFatVal());
+                    }
                 }
-            }
-    });
-
-    protected void AfterFoodInput() {
-        String str = foodAmount.getText().toString().trim();
-        if (str.equals("")) {
-            str = "1";
-        }
-        number = Integer.parseInt(str);
-        tmpcal = item.getCalVal() * number;
-        tmpcar = item.getCarVal() * number;
-        tmppro = item.getProVal() * number;
-        tmpfat = item.getCarVal() * number;
-
-        calVal.setText("" + tmpcal);
-        carVal.setText("" + tmpcar);
-        proVal.setText("" + tmppro);
-        fatVal.setText("" + tmpfat);
-    }
-
-    protected void endOfSeq() {
-        svBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //save in db
-            }
-        });
-        delBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    finish();
-                }
-        });
-
-        imageView = findViewById(R.id.imageView);
-
-//        Button button = findViewById(R.id.cameraBtn);
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                    takePicture();
-//                }
-//        });
-
-    }
+            });
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "TEST_" + timeStamp + "_";
@@ -206,8 +245,6 @@ public class food_data_input extends AppCompatActivity {
         imageFilePath = image.getAbsolutePath();
         return image;
     }
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
@@ -219,8 +256,6 @@ public class food_data_input extends AppCompatActivity {
                 exif = new ExifInterface(imageFilePath);
             } catch (IOException e) {
                 e.printStackTrace();
-            }
-
             int exifOrientation;
             int exifDegree;
 
@@ -274,7 +309,7 @@ public class food_data_input extends AppCompatActivity {
         }
 
     }
-
+       
     private int exifOrientationToDegrees(int exifOrientation) {
         if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_90) {
             return 90;
@@ -285,7 +320,6 @@ public class food_data_input extends AppCompatActivity {
         }
         return 0;
     }
-
     private Bitmap rotate(Bitmap bitmap, float degree) {
         Matrix matrix = new Matrix();
         matrix.postRotate(degree);
