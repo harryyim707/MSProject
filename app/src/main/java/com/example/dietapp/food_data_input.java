@@ -52,7 +52,8 @@ public class food_data_input extends AppCompatActivity {
     Float tmpcar, tmppro, tmpfat;
     String reviewStr, inputTime, dateInfo, timeInfo, food;
     String imgDir = "null"; //여기에 이미지 디렉토리 저장
-    String address = "null"; //여기에 위치 정보 저장
+    String address; //여기에 위치 정보 저장
+    String where;
     int when;
 
     String info;
@@ -126,8 +127,9 @@ public class food_data_input extends AppCompatActivity {
         srch2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                address = inPlace.getText().toString();
-
+                where = inPlace.getText().toString();
+                Intent intent = new Intent(food_data_input.this, Map.class);
+                launcher2.launch(intent);
             }
         });
 
@@ -225,6 +227,19 @@ public class food_data_input extends AppCompatActivity {
                         carVal.setText("" + item.getCarVal());
                         proVal.setText("" + item.getProVal());
                         fatVal.setText("" + item.getFatVal());
+                    }
+                }
+            });
+
+    ActivityResultLauncher<Intent> launcher2 = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if(result.getResultCode() == RESULT_OK){
+                        Intent intent = result.getData();
+                        address = intent.getStringExtra("result");
+                        address = where+address;
+//                        System.out.println(address);
                     }
                 }
             });
