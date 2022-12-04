@@ -41,34 +41,18 @@ import java.util.Date;
 import java.util.Locale;
 
 public class food_data_input extends AppCompatActivity {
-    String food;
-    ImageButton srchBtn;
-    private EditText foodName;
-    private EditText foodAmount;
-    private TextView calVal;
-    private TextView carVal;
-    private TextView proVal;
-    private TextView fatVal;
+    ImageButton srchBtn, srch2;
+    private TextView calVal, carVal, proVal, fatVal, nu;
     private SingleItem item;
-    private TextView nu;
-    EditText review;
-    EditText timeInput;
-    Button svBtn;
-    Button delBtn;
-    Button apply;
+    EditText foodName, foodAmount, review, timeInput, inPlace;
+    Button svBtn, delBtn, apply;
     ImageView imgView;
 
-    Integer number;
-    Integer tmpcal;
-    Float tmpcar;
-    Float tmppro;
-    Float tmpfat;
-    String reviewStr;
-    String inputTime;
+    Integer number, tmpcal;
+    Float tmpcar, tmppro, tmpfat;
+    String reviewStr, inputTime, dateInfo, timeInfo, food;
     String imgDir = "null"; //여기에 이미지 디렉토리 저장
     String address = "null"; //여기에 위치 정보 저장
-    String dateInfo;
-    String timeInfo;
     int when;
 
     String info;
@@ -108,6 +92,8 @@ public class food_data_input extends AppCompatActivity {
         timeInput = (EditText) findViewById(R.id.inputTime);
         svBtn = (Button) findViewById(R.id.saveBtn);
         delBtn = (Button) findViewById(R.id.delBtn);
+        inPlace = (EditText) findViewById(R.id.inputPlace);
+        srch2 = (ImageButton)findViewById(R.id.searchBtn2);
         // 사진 저장 후 미디어 스캐닝, 갤러리에 반영
         mMediaScanner = MediaScanner.getInstance(getApplicationContext());
         apply = (Button) findViewById(R.id.apply);
@@ -134,6 +120,14 @@ public class food_data_input extends AppCompatActivity {
                 selectFood.putExtra("link", url);
                 selectFood.putExtra("name", food);
                 launcher.launch(selectFood);
+            }
+        });
+
+        srch2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                address = inPlace.getText().toString();
+
             }
         });
 
@@ -180,10 +174,7 @@ public class food_data_input extends AppCompatActivity {
                 } else {
                     timeInfo = null;
                 }
-                if(imageFilePath.equals("")){
-                    imgDir="null";
-                }
-                else imgDir = imageFilePath;
+                imgDir = imageFilePath;
                 //save in db
                 dbManager.insertData(item.getName(), when, tmpcal, tmpcar, tmppro, tmpfat, reviewStr, dateInfo, timeInfo, imgDir, address);
                 finish();

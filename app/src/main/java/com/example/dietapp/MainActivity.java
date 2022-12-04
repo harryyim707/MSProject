@@ -156,7 +156,6 @@ public class MainActivity extends AppCompatActivity {
         today = format.format(currentTime);
         Cursor c = db.rawQuery("select sum(calories), sum(carbohydrate), sum(protein), sum(fat) from Nutrition where "
                 +DBManager.COLUMN_DATE+"=?", new String[]{today});
-
         calVal = (TextView) findViewById(R.id.cal_val);
         carVal = (TextView) findViewById(R.id.car_val);
         proVal = (TextView) findViewById(R.id.pro_val);
@@ -183,6 +182,7 @@ public class MainActivity extends AppCompatActivity {
             proVal.setText("");
             fatVal.setText("");
         }
+        c.close();
         sumBr = (TextView) findViewById(R.id.sumBr);
         Cursor cb = db.rawQuery("select sum(calories) from nutrition where mealdate =? and meal=?", new String[]{today, "1"});
         int brSum = 0;
@@ -192,6 +192,7 @@ public class MainActivity extends AppCompatActivity {
             }
             sumBr.setText(String.format("%d kcal", brSum));
         }
+        cb.close();
         sumLc = (TextView) findViewById(R.id.sumLc);
         Cursor cl = db.rawQuery("select sum(calories) from nutrition where mealdate =? and meal=?", new String[]{today, "2"});
         int lcSum = 0;
@@ -201,6 +202,7 @@ public class MainActivity extends AppCompatActivity {
             }
             sumLc.setText(String.format("%d kcal", lcSum));
         }
+        cl.close();
         sumDn = (TextView) findViewById(R.id.sumDn);
         Cursor cd = db.rawQuery("select sum(calories) from nutrition where mealdate =? and meal=?", new String[]{today, "3"});
         int dnSum = 0;
@@ -210,6 +212,7 @@ public class MainActivity extends AppCompatActivity {
             }
             sumDn.setText(String.format("%d kcal", dnSum));
         }
+        cd.close();
     }
     private void showList(){
         recyclerView1 = (RecyclerView) findViewById(R.id.recyclerview1);

@@ -30,7 +30,7 @@ public class DBManager extends SQLiteOpenHelper {
 
     static final String CREATE_DB = "CREATE TABLE IF NOT EXISTS "+ TABLE_NAME+" ("+ COLUMN_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+COLUMN_WHEN
             +" INTEGER NOT NULL, "+COLUMN_NAME+" TEXT NOT NULL, "+COLUMN_CAL+" INTEGER NOT NULL, "+COLUMN_CAR+" REAL NOT NULL, "+COLUMN_PRO+" REAL NOT NULL, "+
-            COLUMN_FAT+" REAL NOT NULL, "+COLUMN_REVIEW+" TEXT, "+COLUMN_DATE+" TEXT, "+COLUMN_TIME+" TEXT, "+COLUMN_IMG_DIR+" TEXT, "+COLUMN_ADDRESS+" TEXT);";
+            COLUMN_FAT+" REAL NOT NULL, "+COLUMN_REVIEW+" TEXT, "+COLUMN_DATE+" DATE(10), "+COLUMN_TIME+" TEXT, "+COLUMN_IMG_DIR+" TEXT, "+COLUMN_ADDRESS+" TEXT);";
 
     public DBManager(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
