@@ -69,4 +69,14 @@ public class DBManager extends SQLiteOpenHelper {
         addValues.put(DBManager.COLUMN_ADDRESS, address);
         db.insert(DBManager.TABLE_NAME,null,addValues);
     }
+
+    public Cursor viewData(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "Select * from "+TABLE_NAME;
+        Cursor cursor = db.rawQuery(query, null);
+
+        return cursor;
+    }
+
+
 }
