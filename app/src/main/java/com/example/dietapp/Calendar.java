@@ -97,7 +97,7 @@ public class Calendar extends AppCompatActivity {
                 today.setText(year + "년" + (month + 1) + "월" + day + "일");
                 selectDate = Integer.toString(year) + "-" + Integer.toString(month+1) + "-" + Integer.toString(day);
 
-                Cursor cursor = db.rawQuery("select name, calories, carbohydrate, protein, fat from Nutrition where Nutrition.mealdate=selectDate and meal=1;", null);
+                Cursor cursor = db.rawQuery("select name, calories, carbohydrate, protein, fat from Nutrition where Nutrition.mealdate="+selectDate+" and meal=1;", null);
                 if(cursor != null){
                     while(cursor.moveToNext()){
                          br.setText(cursor.getString(0));
@@ -108,7 +108,7 @@ public class Calendar extends AppCompatActivity {
                     }
                 }
 
-                cursor = db.rawQuery("select name, calories, carbohydrate, protein, fat from Nutrition where Nutrition.mealdate=selectDate and meal=2;", null);
+                cursor = db.rawQuery("select name, calories, carbohydrate, protein, fat from Nutrition where Nutrition.mealdate="+selectDate+" and meal=2;", null);
                 if(cursor != null){
                     while(cursor.moveToNext()){
                         lc.setText(cursor.getString(0));
@@ -119,7 +119,7 @@ public class Calendar extends AppCompatActivity {
                     }
                 }
 
-                cursor = db.rawQuery("select name, calories, carbohydrate, protein, fat from Nutrition where Nutrition.mealdate=selectDate and meal=3;", null);
+                cursor = db.rawQuery("select name, calories, carbohydrate, protein, fat from Nutrition where Nutrition.mealdate="+selectDate+" and meal=3;", null);
                 if(cursor != null){
                     while(cursor.moveToNext()){
                         dn.setText(cursor.getString(0));

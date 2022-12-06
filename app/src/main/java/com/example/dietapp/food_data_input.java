@@ -101,7 +101,7 @@ public class food_data_input extends AppCompatActivity {
         imgView = (ImageView) findViewById(R.id.imageView);
         try{
             File imgFile = new File(imageFilePath);
-            if(imgFile.exists()==true){
+            if(imgFile.exists()){
                 Uri uri = Uri.parse(imageFilePath);
                 imgView.setImageURI(uri);
             }
@@ -127,8 +127,9 @@ public class food_data_input extends AppCompatActivity {
         srch2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                where = inPlace.getText().toString();
+                String str = inPlace.getText().toString();
                 Intent intent = new Intent(food_data_input.this, Map.class);
+                intent.putExtra("input", str);
                 launcher2.launch(intent);
             }
         });
@@ -237,9 +238,10 @@ public class food_data_input extends AppCompatActivity {
                 public void onActivityResult(ActivityResult result) {
                     if(result.getResultCode() == RESULT_OK){
                         Intent intent = result.getData();
+                        where=intent.getStringExtra("place");
                         address = intent.getStringExtra("result");
                         address = where+address;
-//                        System.out.println(address);
+                        System.out.println(address);
                     }
                 }
             });
