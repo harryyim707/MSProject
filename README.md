@@ -21,6 +21,8 @@ Mobile Software project of creating an android application for recording diets u
 > * 최근 식사에 대한 칼로리 총량 보여주기
 
 ## Demo
+### Main Page
+
 ### 식사 입력하기
 
 ### 식사 보여주기
