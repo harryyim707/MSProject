@@ -1,6 +1,6 @@
 # MSProject: 다이어트 앱 만들기
 Mobile Software project of creating an android application for recording diets using Android Studio
----
+
 ## 개발 목표
 * JAVA를 사용하여 간단한 안드로이드용 어플을 만들어 본다.
 
