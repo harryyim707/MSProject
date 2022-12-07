@@ -1,8 +1,8 @@
 package com.example.dietapp;
 
 public class SingleItem {
-    private Integer standard;
-    private Integer weight;
+    private String standard;
+    private String weight;
     private Integer calVal;
     private Float carVal;
     private Float proVal;
@@ -10,7 +10,7 @@ public class SingleItem {
     private String name;
     private String brand;
 
-    public SingleItem(String name, String brand, Integer standard, Integer weight, Integer cal, Float car, Float pro, Float fat){
+    public SingleItem(String name, String brand, String standard, String weight, Integer cal, Float car, Float pro, Float fat){
         setStandard(standard);
         setWeight(weight);
         setName(name);
@@ -29,11 +29,11 @@ public class SingleItem {
         this.name = name;
     }
 
-    public void setStandard(Integer standard) {
+    public void setStandard(String standard) {
         this.standard = standard;
     }
 
-    public void setWeight(Integer weight) {
+    public void setWeight(String weight) {
         this.weight = weight;
     }
 
@@ -77,11 +77,11 @@ public class SingleItem {
         return fatVal;
     }
 
-    public Integer getStandard() {
+    public String getStandard() {
         return standard;
     }
 
-    public Integer getWeight() {
+    public String getWeight() {
         return weight;
     }
 }

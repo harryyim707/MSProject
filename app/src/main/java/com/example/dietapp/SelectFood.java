@@ -90,10 +90,8 @@ public class SelectFood extends AppCompatActivity {
                     String servingSize = info[0];
                     String servingWeight = info[1];
 
-                    Integer standard = Integer.parseInt(servingSize.substring(0,1));
-                    int idx = servingWeight.indexOf("g");
-
-                    Integer weight = Integer.parseInt(servingWeight.substring(1,idx));
+                    String standard = info[0];
+                    String weight = info[1];
 
                     String calories = info[4];
                     int idx_cal = calories.indexOf("k");

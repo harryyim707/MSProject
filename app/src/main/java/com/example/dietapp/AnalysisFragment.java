@@ -1,38 +1,37 @@
 package com.example.dietapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.MenuItem;
+
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
-public class Analysis extends AppCompatActivity {
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link AnalysisFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class AnalysisFragment extends Fragment {
+
     Button tod;
     Button week;
     Button month;
@@ -46,7 +45,6 @@ public class Analysis extends AppCompatActivity {
     ArrayList<Float> br = null;
     ArrayList<Float> lc = null;
     ArrayList<Float> dn = null;
-    ArrayList<BarEntry> entryChart;
     ArrayList barEntries;
     String[] meals = new String[]{"Breakfast", "Lunch", "Dinner"};
 
@@ -56,50 +54,65 @@ public class Analysis extends AppCompatActivity {
     SimpleDateFormat format;
     String today;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_analysis);
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.menu_bottom_navigation);
-        bottomNavigationView.setSelectedItemId(R.id.menu_analysis);
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.menu_analysis:
-                        return true;
-                    case R.id.menu_home:
-                        startActivity(new Intent(Analysis.this, MainActivity.class));
-                        return true;
-                    case R.id.menu_calendar:
-                        startActivity(new Intent(Analysis.this, Calendar.class));
-                        return true;
-                }
-                return false;
-            }
-        });
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+
+    public AnalysisFragment() {
+        // Required empty public constructor
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment AnalysisFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static AnalysisFragment newInstance(String param1, String param2) {
+        AnalysisFragment fragment = new AnalysisFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
 
-        tod = (Button) findViewById(R.id.btnToday);
-        week = (Button) findViewById(R.id.btnWeek);
-        month = (Button) findViewById(R.id.btnMonth);
-        showBr = (TextView) findViewById(R.id.showTotBr);
-        showLc = (TextView) findViewById(R.id.showTotLc);
-        showDn = (TextView) findViewById(R.id.showTotDn);
-        showTot = (TextView) findViewById(R.id.showTotCal);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_analysis, container, false);
+        tod = (Button) view.findViewById(R.id.btnToday);
+        week = (Button) view.findViewById(R.id.btnWeek);
+        month = (Button) view.findViewById(R.id.btnMonth);
+        showBr = (TextView) view.findViewById(R.id.showTotBr);
+        showLc = (TextView) view.findViewById(R.id.showTotLc);
+        showDn = (TextView) view.findViewById(R.id.showTotDn);
+        showTot = (TextView) view.findViewById(R.id.showTotCal);
 
-        barChart = (BarChart) findViewById(R.id.chart);
+        barChart = (BarChart) view.findViewById(R.id.chart);
 
         Date currentTime = java.util.Calendar.getInstance().getTime();
         format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         today = format.format(currentTime);
 
-        dbManager = new DBManager(this, DBManager.DB, null, DBManager.DB_VERSION);
+        dbManager = new DBManager(getActivity(), DBManager.DB, null, DBManager.DB_VERSION);
         db = dbManager.getReadableDatabase();
 
         initialize();
@@ -334,7 +347,7 @@ public class Analysis extends AppCompatActivity {
                 cursor.close();
             }
         });
-
+        return view;
     }
 
     private void initialize() {
@@ -414,7 +427,7 @@ public class Analysis extends AppCompatActivity {
 
     private void setChart() {
         carbo = new BarDataSet(getCarEntries(), "Carbohydrate");
-        carbo.setColor(getApplicationContext().getResources().getColor(R.color.purple_200));
+        carbo.setColor(getActivity().getResources().getColor(R.color.purple_200));
         pro = new BarDataSet(getProEntries(), "Protein");
         pro.setColor(Color.CYAN);
         fat = new BarDataSet(getFatEntries(), "Fat");
@@ -467,5 +480,4 @@ public class Analysis extends AppCompatActivity {
         }
         return barEntries;
     }
-
 }

@@ -39,12 +39,6 @@
             android:value="AIzaSyAj4dpfR9NgJrdl4vD5iOSnZPG9-8GIZ9c" />
         <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".Analysis" />
-        <activity android:name=".Calendar" /> <!-- <provider -->
-        <!-- android:name=".DBProvider" -->
-        <!-- android:authorities="com.example.dietapp" -->
-        <!-- android:enabled="true" -->
-        <!-- android:exported="true"></provider> -->
         <activity
             android:name=".SelectFood"
             android:exported="false" />

@@ -100,10 +100,12 @@ public class food_data_input extends AppCompatActivity {
         apply = (Button) findViewById(R.id.apply);
         imgView = (ImageView) findViewById(R.id.imageView);
         try{
-            File imgFile = new File(imageFilePath);
-            if(imgFile.exists()){
-                Uri uri = Uri.parse(imageFilePath);
-                imgView.setImageURI(uri);
+            if(imageFilePath!=null) {
+                File imgFile = new File(imageFilePath);
+                if (imgFile.exists()) {
+                    Uri uri = Uri.parse(imageFilePath);
+                    imgView.setImageURI(uri);
+                }
             }
         }catch (Exception error){
             error.printStackTrace();
@@ -220,9 +222,9 @@ public class food_data_input extends AppCompatActivity {
                         info = intent.getStringExtra("result");
 
                         String[] tmp = info.split(",");
-                        item = new SingleItem(tmp[0], tmp[1], Integer.parseInt(tmp[2]), Integer.parseInt(tmp[3]),
+                        item = new SingleItem(tmp[0], tmp[1], tmp[2], tmp[3],
                                 Integer.parseInt(tmp[4]), Float.parseFloat(tmp[5]), Float.parseFloat(tmp[6]), Float.parseFloat(tmp[7]));
-                        nu.setText("" + item.getStandard() + " 개/ " + item.getWeight() + " g 당 영양성분");
+                        nu.setText("" + item.getStandard() + " / " + item.getWeight() + " 영양성분");
                         foodName.setText(item.getName());
                         calVal.setText("" + item.getCalVal());
                         carVal.setText("" + item.getCarVal());
@@ -241,7 +243,7 @@ public class food_data_input extends AppCompatActivity {
                         where=intent.getStringExtra("place");
                         address = intent.getStringExtra("result");
                         address = where+address;
-                        System.out.println(address);
+                        inPlace.setText(where);
                     }
                 }
             });

@@ -18,6 +18,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
@@ -37,6 +38,7 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
     private EditText place;
 
     String name, latitude, longitude;
+    String resLat, resLng, resname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,10 +96,10 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                String res = "("+latitude+", "+longitude+")";
+                String res = "("+resLat+", "+resLng+")";
                 System.out.println(res);
                 intent.putExtra("result", res);
-                intent.putExtra("place", name);
+                intent.putExtra("place", resname);
                 System.out.println(name);
                 setResult(Activity.RESULT_OK, intent);
                 finish();
@@ -112,9 +114,8 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
         });
 
         LatLng seoul = new LatLng(37.5576, 127.000);
-        map.addMarker(new MarkerOptions().position(seoul).title("Marker in Seoul"));
         map.moveCamera(CameraUpdateFactory.newLatLng(seoul));
-        map.animateCamera(CameraUpdateFactory.zoomTo(10));
+        map.animateCamera(CameraUpdateFactory.zoomTo(15));
 
     }
 
@@ -149,23 +150,34 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
                 e.printStackTrace();
             }
         }
-        System.out.println(addressList.get(0).toString());
-        String[] splitStr = addressList.get(0).toString().split(",");
-        String address = splitStr[0].substring(splitStr[0].indexOf("\"") + 1, splitStr[0].length() - 2);
-        System.out.println(address);
-        latitude = splitStr[10].substring(splitStr[10].indexOf("=") + 1); // 위도
-        longitude = splitStr[12].substring(splitStr[12].indexOf("=") + 1); // 경도
-        System.out.println(latitude);
-        System.out.println(longitude);
-        LatLng point = new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
-        // 마커 생성
-        MarkerOptions mOptions2 = new MarkerOptions();
-        mOptions2.title(str);
-        mOptions2.snippet(address);
-        mOptions2.position(point);
-        // 마커 추가
-        map.addMarker(mOptions2);
-        // 해당 좌표로 화면 줌
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(point,15));
+        if(!addressList.isEmpty()){
+            System.out.println(addressList.get(0).toString());
+            String[] splitStr = addressList.get(0).toString().split(",");
+            String address = splitStr[0].substring(splitStr[0].indexOf("\"") + 1, splitStr[0].length() - 2);
+            System.out.println(address);
+            latitude = splitStr[10].substring(splitStr[10].indexOf("=") + 1); // 위도
+            longitude = splitStr[12].substring(splitStr[12].indexOf("=") + 1); // 경도
+            System.out.println(latitude);
+            System.out.println(longitude);
+            LatLng point = new LatLng(Double.parseDouble(latitude), Double.parseDouble(longitude));
+            // 마커 생성
+            MarkerOptions mOptions2 = new MarkerOptions();
+            mOptions2.title(str);
+            mOptions2.snippet(address);
+            mOptions2.position(point);
+            // 마커 추가
+            map.addMarker(mOptions2);
+            // 해당 좌표로 화면 줌
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(point,15));
+            map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                @Override
+                public boolean onMarkerClick(@NonNull Marker marker) {
+                    resLat = latitude;
+                    resLng = longitude;
+                    resname = str;
+                    return false;
+                }
+            });
+        }
     }
 }
