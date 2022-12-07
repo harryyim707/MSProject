@@ -6,7 +6,7 @@ Mobile Software project of creating an android application for recording diets u
 ### 개발 목표
 * JAVA를 사용하여 간단한 안드로이드용 어플을 만들어 본다.
 
-### Fearures
+### Features
 * 식사 입력하기
 > * 음식 이름 및 수량 입력
 > * 음식 사진 입력
