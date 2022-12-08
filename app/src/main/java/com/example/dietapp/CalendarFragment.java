@@ -77,23 +77,7 @@ public class CalendarFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
         today = view.findViewById(R.id.todayDate);
 
-        br = view.findViewById(R.id.brName);
-        brCal = view.findViewById(R.id.brCal);
-        brCar = view.findViewById(R.id.brCar);
-        brPro = view.findViewById(R.id.brPro);
-        brFat = view.findViewById(R.id.brFat);
 
-        lc = view.findViewById(R.id.lcName);
-        lcCal = view.findViewById(R.id.lcCal);
-        lcCar = view.findViewById(R.id.lcCar);
-        lcPro = view.findViewById(R.id.lcPro);
-        lcFat = view.findViewById(R.id.lcFat);
-
-        dn = view.findViewById(R.id.dnName);
-        dnCal = view.findViewById(R.id.dnCal);
-        dnCar = view.findViewById(R.id.dnCar);
-        dnPro = view.findViewById(R.id.dnPro);
-        dnFat = view.findViewById(R.id.dnFat);
 
         calendarView =  view.findViewById(R.id.calendarView);
 
@@ -107,36 +91,7 @@ public class CalendarFragment extends Fragment {
                 today.setText(year + "년" + (month + 1) + "월" + day + "일");
                 selectDate = Integer.toString(year) + "-" + Integer.toString(month+1) + "-" + Integer.toString(day);
 
-                Cursor cursor = db.rawQuery("select sum(calories), sum(carbohydrate), sum(protein), sum(fat) from Nutrition where Nutrition.mealdate=?"+" and meal=1;", new String[]{selectDate});
-                if(cursor != null){
-                    while(cursor.moveToNext()){
-                        brCal.setText(cursor.getString(0)+" kcal");
-                        brCar.setText(cursor.getString(1)+" g");
-                        brPro.setText(cursor.getString(2)+" g");
-                        brFat.setText(cursor.getString(3)+" g");
-                    }
-                }
 
-                cursor = db.rawQuery("select sum(calories), sum(carbohydrate), sum(protein), sum(fat) from Nutrition where Nutrition.mealdate=?"+" and meal=2;", new String[]{selectDate});
-                if(cursor != null){
-                    while(cursor.moveToNext()){
-                        lcCal.setText(cursor.getString(0)+" kcal");
-                        lcCar.setText(cursor.getString(1)+" g");
-                        lcPro.setText(cursor.getString(2)+" g");
-                        lcFat.setText(cursor.getString(3)+" g");
-                    }
-                }
-
-                cursor = db.rawQuery("select sum(calories), sum(carbohydrate), sum(protein), sum(fat) from Nutrition where Nutrition.mealdate=?"+" and meal=3;", new String[]{selectDate});
-                if(cursor != null){
-                    while(cursor.moveToNext()){
-                        dnCal.setText(cursor.getString(0)+" kcal");
-                        dnCar.setText(cursor.getString(1)+" g");
-                        dnPro.setText(cursor.getString(2)+" g");
-                        dnFat.setText(cursor.getString(3)+" g");
-                    }
-                }
-                cursor.close();
             }
         });
         return view;

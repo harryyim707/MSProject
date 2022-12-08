@@ -16,11 +16,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,13 +42,11 @@ public class Home extends Fragment {
     private ImageButton addBtn1;
     private ImageButton addBtn2;
     private ImageButton addBtn3;
-    private RecyclerView recyclerView1;
-    private RecyclerView recyclerView2;
-    private RecyclerView recyclerView3;
     TextView sumBr;
     TextView sumLc;
     TextView sumDn;
-
+    TextView brCar, brPro, brFat, lcCar, lcPro, lcFat, dnCar, dnPro, dnFat;
+    Button brName, lcName, dnName;
 
     SimpleDateFormat format;
     String today;
@@ -110,9 +110,22 @@ public class Home extends Fragment {
         sumBr = (TextView) view.findViewById(R.id.sumBr);
         sumLc = (TextView) view.findViewById(R.id.sumLc);
         sumDn = (TextView) view.findViewById(R.id.sumDn);
-        recyclerView1 = (RecyclerView) view.findViewById(R.id.recyclerview1);
-        recyclerView2 = (RecyclerView) view.findViewById(R.id.recyclerview2);
-        recyclerView3 = (RecyclerView) view.findViewById(R.id.recyclerview3);
+
+        brName = view.findViewById(R.id.brName);
+        brCar = view.findViewById(R.id.brCar);
+        brPro = view.findViewById(R.id.brPro);
+        brFat = view.findViewById(R.id.brFat);
+
+        lcName = view.findViewById(R.id.lcName);
+        lcCar = view.findViewById(R.id.lcCar);
+        lcPro = view.findViewById(R.id.lcPro);
+        lcFat = view.findViewById(R.id.lcFat);
+
+        dnName = view.findViewById(R.id.dnName);
+        dnCar = view.findViewById(R.id.dnCar);
+        dnPro = view.findViewById(R.id.dnPro);
+        dnFat = view.findViewById(R.id.dnFat);
+
         //apply click event on buttons
         addBtn1 = view.findViewById(R.id.addBtn1);
         addBtn1.setOnClickListener(new View.OnClickListener() {
@@ -141,9 +154,33 @@ public class Home extends Fragment {
                 startActivity(intent);
             }
         });
+
+        brName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), food_data_view.class);
+                intent.putExtra("selectMeal", "1");
+                startActivity(intent);
+            }
+        });
+        lcName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), food_data_view.class);
+                intent.putExtra("selectMeal", "2");
+                startActivity(intent);
+            }
+        });
+        dnName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), food_data_view.class);
+                intent.putExtra("selectMeal", "3");
+                startActivity(intent);
+            }
+        });
         //get DB
         getDB();
-        showList();
         return view;
     }
 
@@ -151,7 +188,6 @@ public class Home extends Fragment {
     public void onResume() {
         super.onResume();
         getDB();
-        showList();
     }
 
     private void getDB() {
@@ -192,7 +228,17 @@ public class Home extends Fragment {
             }
             sumBr.setText(String.format("%d kcal", brSum));
         }
+        cb = db.rawQuery("select name, sum(carbohydrate), sum(protein), sum(fat) from Nutrition where Nutrition.mealdate=?"+" and meal=1;", new String[]{today});
+        if(cb != null){
+            while(cb.moveToNext()){
+                brName.setText(cb.getString(0));
+                brCar.setText(cb.getString(1)+" g");
+                brPro.setText(cb.getString(2)+" g");
+                brFat.setText(cb.getString(3)+" g");
+            }
+        }
         cb.close();
+
         Cursor cl = db.rawQuery("select sum(calories) from nutrition where mealdate =? and meal=?", new String[]{today, "2"});
         int lcSum = 0;
         if(cl!=null){
@@ -200,6 +246,15 @@ public class Home extends Fragment {
                 lcSum = cl.getInt(0);
             }
             sumLc.setText(String.format("%d kcal", lcSum));
+        }
+        cl = db.rawQuery("select name, sum(carbohydrate), sum(protein), sum(fat) from Nutrition where Nutrition.mealdate=?"+" and meal=2;", new String[]{today});
+        if(cl != null){
+            while(cl.moveToNext()){
+                lcName.setText(cl.getString(0));
+                lcCar.setText(cl.getString(1)+" g");
+                lcPro.setText(cl.getString(2)+" g");
+                lcFat.setText(cl.getString(3)+" g");
+            }
         }
         cl.close();
         Cursor cd = db.rawQuery("select sum(calories) from nutrition where mealdate =? and meal=?", new String[]{today, "3"});
@@ -210,37 +265,15 @@ public class Home extends Fragment {
             }
             sumDn.setText(String.format("%d kcal", dnSum));
         }
+        cd = db.rawQuery("select name, sum(carbohydrate), sum(protein), sum(fat) from Nutrition where Nutrition.mealdate=?"+" and meal=3;", new String[]{today});
+        if(cd != null){
+            while(cd.moveToNext()){
+                dnName.setText(cd.getString(0));
+                dnCar.setText(cd.getString(1)+" g");
+                dnPro.setText(cd.getString(2)+" g");
+                dnFat.setText(cd.getString(3)+" g");
+            }
+        }
         cd.close();
-    }
-    private void showList(){
-
-        recyclerView1.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        List<ExpandableListAdapter.Item> data1 = new ArrayList<>();
-        data1.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "Meal List", "", "", ""));
-        Cursor c = db.rawQuery("select name, carbohydrate, protein, fat"+" from "+DBManager.TABLE_NAME+
-                " where "+DBManager.COLUMN_WHEN+"=?", new String[]{"1"});
-        while(c.moveToNext()){
-            data1.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, c.getString(0), c.getString(1), c.getString(2), c.getString(3)));
-        }
-        recyclerView1.setAdapter(new ExpandableListAdapter(data1));
-        recyclerView2.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        List<ExpandableListAdapter.Item> data2 = new ArrayList<>();
-        data2.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "Meal List", "","",""));
-        Cursor c2 = db.rawQuery("select name, carbohydrate, protein, fat from "+DBManager.TABLE_NAME+
-                " where "+DBManager.COLUMN_WHEN+"=?", new String[]{"2"});
-        while(c2.moveToNext()){
-            data2.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, c2.getString(0), c2.getString(1), c2.getString(2), c2.getString(3)));
-        }
-        recyclerView2.setAdapter(new ExpandableListAdapter(data2));
-        recyclerView3.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        List<ExpandableListAdapter.Item> data3 = new ArrayList<>();
-        data3.add(new ExpandableListAdapter.Item(ExpandableListAdapter.HEADER, "Meal List", "","",""));
-        Cursor c3 = db.rawQuery("select name, carbohydrate, protein, fat from "+DBManager.TABLE_NAME+
-                " where "+DBManager.COLUMN_WHEN+"=?", new String[]{"3"});
-        while(c3.moveToNext()){
-            data3.add(new ExpandableListAdapter.Item(ExpandableListAdapter.CHILD, c3.getString(0), c3.getString(1), c3.getString(2), c3.getString(3)));
-        }
-        recyclerView3.setAdapter(new ExpandableListAdapter(data3));
-
     }
 }
