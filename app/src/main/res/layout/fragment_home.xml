@@ -237,15 +237,52 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <Button
+                    android:id="@+id/brName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#FFFFFF"
+                    android:text="@string/breakfast" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp">
+
+                    <TextView
+                        android:id="@+id/brCar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/no_data"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:id="@+id/brPro"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/no_data"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:id="@+id/brFat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/no_data"
+                        android:textAlignment="center" />
+
+                </LinearLayout>
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/breakfastInfo"
                     android:layout_width="409dp"
                     android:layout_height="wrap_content" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerview1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
 
             </LinearLayout>
 
@@ -307,10 +344,48 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerview2"
+                <Button
+                    android:id="@+id/lcName"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#FFFFFF"
+                    android:text="@string/lunch" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp">
+
+                    <TextView
+                        android:id="@+id/lcCar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/no_data"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:id="@+id/lcPro"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/no_data"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:id="@+id/lcFat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/no_data"
+                        android:textAlignment="center" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
@@ -371,10 +446,48 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerview3"
+                <Button
+                    android:id="@+id/dnName"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#FFFFFF"
+                    android:text="@string/dinner" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp">
+
+                    <TextView
+                        android:id="@+id/dnCar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/no_data"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:id="@+id/dnPro"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/no_data"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:id="@+id/dnFat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="@string/no_data"
+                        android:textAlignment="center" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
         </LinearLayout>
