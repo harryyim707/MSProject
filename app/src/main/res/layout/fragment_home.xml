@@ -237,18 +237,21 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <Button
-                    android:id="@+id/brName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="#FFFFFF"
-                    android:text="@string/breakfast" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="90dp"
+                    android:layout_gravity="center"
                     android:orientation="horizontal"
                     android:paddingTop="20dp">
+
+                    <Button
+                        android:id="@+id/brName"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|center_horizontal"
+                        android:backgroundTint="#FFFFFF"
+                        android:gravity="center"
+                        android:text="@string/breakfast" />
 
                     <TextView
                         android:id="@+id/brCar"
@@ -344,18 +347,19 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <Button
-                    android:id="@+id/lcName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="#FFFFFF"
-                    android:text="@string/lunch" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="90dp"
                     android:orientation="horizontal"
                     android:paddingTop="20dp">
+
+                    <Button
+                        android:id="@+id/lcName"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:backgroundTint="#FFFFFF"
+                        android:text="@string/lunch" />
 
                     <TextView
                         android:id="@+id/lcCar"
@@ -446,18 +450,19 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <Button
-                    android:id="@+id/dnName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="#FFFFFF"
-                    android:text="@string/dinner" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="90dp"
                     android:orientation="horizontal"
                     android:paddingTop="20dp">
+
+                    <Button
+                        android:id="@+id/dnName"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:backgroundTint="#FFFFFF"
+                        android:text="@string/dinner" />
 
                     <TextView
                         android:id="@+id/dnCar"

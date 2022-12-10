@@ -37,13 +37,13 @@ public class SingleItemAdapter extends BaseAdapter {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = inflater.inflate(R.layout.list_item, parent, false);
 
-        TextView name = view.findViewById(R.id.listFoodName);
+        TextView name = view.findViewById(R.id.MealWhen);
         name.setText(array_singleItem.get(position).getName());
 
         TextView brand = view.findViewById(R.id.listFoodBrand);
         brand.setText(array_singleItem.get(position).getBrand());
 
-        TextView weight = view.findViewById(R.id.listFoodWeight);
+        TextView weight = view.findViewById(R.id.FoodName);
         weight.setText(array_singleItem.get(position).getWeight().toString());
 
         TextView standard = view.findViewById(R.id.listFoodStandard);

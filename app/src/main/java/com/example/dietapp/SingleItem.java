@@ -1,5 +1,6 @@
 package com.example.dietapp;
 
+
 public class SingleItem {
     private String standard;
     private String weight;
