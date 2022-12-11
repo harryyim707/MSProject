@@ -8,95 +8,84 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 public class food_data_view extends AppCompatActivity {
-
     DBManager dbManager;
     SQLiteDatabase db = null;
-    TextView name, cal, car, pro, fat, review, time, place;
+    int selectMeal;
 
-    Intent intent = getIntent();
-    int selectMeal = intent.getExtras().getInt("selectMeal");
+    private ListView listView;
+    FoodViewItemAdapter adapter = null;
+    ArrayList<FoodViewItem> itemList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_data_view);
+        Intent intent = getIntent();
+        selectMeal = intent.getExtras().getInt("selectMeal");
+        dbManager = new DBManager(this, DBManager.DB, null, DBManager.DB_VERSION);
+        db = dbManager.getWritableDatabase();
+
+        listView = findViewById(R.id.listView2);
+        itemList = new ArrayList<FoodViewItem>();
     }
 
-    protected void onResume(){
+    @Override
+    protected void onResume() {
         super.onResume();
+        init();
+    }
 
+    public void init(){
         SimpleDateFormat dtf = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendar = Calendar.getInstance();
 
         Date dateObj = calendar.getTime();
         String today = dtf.format(dateObj);
 
-        dbManager = new DBManager(this, DBManager.DB, null, DBManager.DB_VERSION);
-
-        name = (TextView) findViewById(R.id.foodName);
-        cal = (TextView) findViewById(R.id.foodName);
-        car = (TextView) findViewById(R.id.foodName);
-        pro = (TextView) findViewById(R.id.foodName);
-        fat = (TextView) findViewById(R.id.foodAmount);
-        review = (TextView) findViewById(R.id.calval);
-        time = (TextView) findViewById(R.id.carval);
-        place = (TextView) findViewById(R.id.proval);
-
-        if(selectMeal ==1){
-            Cursor cursor = db.rawQuery("select name, sum(calories), sum(carbohydrate), sum(protein), sum(fat), review, mealtime, address from Nutrition where Nutrition.mealdate==today and meal=1;", null);
-            if(cursor != null){
-                while(cursor.moveToNext()){
-                    name.setText(cursor.getString(0));
-                    cal.setText(cursor.getString(1)+" g");
-                    car.setText(cursor.getString(2)+" g");
-                    pro.setText(cursor.getString(3)+" g");
-                    fat.setText(cursor.getString(4)+" g");
-                    review.setText(cursor.getString(5));
-                    time.setText(cursor.getString(6));
-                    place.setText(cursor.getString(7));
-                }
+        Cursor cursor = db.rawQuery("select id, name, calories, carbohydrate, protein, fat, quantity, review, mealtime, address, img_dir from Nutrition where mealdate=?"+" and meal=?;", new String[]{today, String.format("%d", selectMeal)});
+        if(cursor != null){
+            while(cursor.moveToNext()){
+                itemList.add(new FoodViewItem(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7), cursor.getString(8), cursor.getString(9), cursor.getString(10)));
             }
         }
+        cursor.close();
+        adapter = new FoodViewItemAdapter(itemList, getApplicationContext());
+        listView.setAdapter(adapter);
 
-        if(selectMeal == 2){
-            Cursor cursor = db.rawQuery("select name, sum(calories), sum(carbohydrate), sum(protein), sum(fat), review, mealtime, address from Nutrition where Nutrition.mealdate=?"+" and meal=2;", new String[]{today});
-            if(cursor != null){
-                while(cursor.moveToNext()){
-                    name.setText(cursor.getString(0));
-                    cal.setText(cursor.getString(1)+" g");
-                    car.setText(cursor.getString(2)+" g");
-                    pro.setText(cursor.getString(3)+" g");
-                    fat.setText(cursor.getString(4)+" g");
-                    review.setText(cursor.getString(5));
-                    time.setText(cursor.getString(6));
-                    place.setText(cursor.getString(7));
-                }
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(food_data_view.this, dataFix.class);
+                FoodViewItem item = itemList.get(position);
+                intent.putExtra("id", item.getId());
+                intent.putExtra("name", item.getName());
+                intent.putExtra("calories", item.getCal());
+                intent.putExtra("carbo", item.getCar());
+                intent.putExtra("pro", item.getPro());
+                intent.putExtra("fat", item.getFat());
+                intent.putExtra("quantity", item.getQuantity());
+                intent.putExtra("review", item.getReview());
+                intent.putExtra("time", item.getTime());
+                intent.putExtra("place", item.getPlace());
+                intent.putExtra("imgDir", item.getImg());
+                startActivity(intent);
             }
-        }
-
-        if(selectMeal == 3){
-            Cursor cursor = db.rawQuery("select name, sum(calories), sum(carbohydrate), sum(protein), sum(fat), review, mealtime, address from Nutrition where Nutrition.mealdate=?"+" and meal=3;", new String[]{today});
-            if(cursor != null){
-                while(cursor.moveToNext()){
-                    name.setText(cursor.getString(0));
-                    cal.setText(cursor.getString(1)+" g");
-                    car.setText(cursor.getString(2)+" g");
-                    pro.setText(cursor.getString(3)+" g");
-                    fat.setText(cursor.getString(4)+" g");
-                    review.setText(cursor.getString(5));
-                    time.setText(cursor.getString(6));
-                    place.setText(cursor.getString(7));
-                }
-            }
-        }
+        });
     }
+
+
 
 
 }

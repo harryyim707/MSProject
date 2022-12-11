@@ -64,8 +64,6 @@ public class food_data_input extends AppCompatActivity {
     // 갤러리 폴더에 바로 반영사항을 업데이트 (미디어 스캐닝)
     private MediaScanner mMediaScanner;
     ImageView imageView;
-    File file;
-    Uri uri;
     SimpleDateFormat format;
 
     DBManager dbManager;
@@ -181,7 +179,7 @@ public class food_data_input extends AppCompatActivity {
                 }
                 imgDir = imageFilePath;
                 //save in db
-                dbManager.insertData(item.getName(), when, tmpcal, tmpcar, tmppro, tmpfat, reviewStr, dateInfo, timeInfo, imgDir, address);
+                dbManager.insertData(item.getName(), when, tmpcal, tmpcar, tmppro, tmpfat, number, reviewStr, dateInfo, timeInfo, imgDir, address);
                 finish();
             }
         });

@@ -141,7 +141,7 @@ public class Home extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), food_data_input.class);
-                intent.putExtra("meal", "2");
+                intent.putExtra("meal", 2);
                 startActivity(intent);
             }
         });
@@ -150,7 +150,7 @@ public class Home extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), food_data_input.class);
-                intent.putExtra("meal", "3");
+                intent.putExtra("meal", 3);
                 startActivity(intent);
             }
         });
@@ -159,7 +159,7 @@ public class Home extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), food_data_view.class);
-                intent.putExtra("selectMeal", "1");
+                intent.putExtra("selectMeal", 1);
                 startActivity(intent);
             }
         });
@@ -167,7 +167,7 @@ public class Home extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), food_data_view.class);
-                intent.putExtra("selectMeal", "2");
+                intent.putExtra("selectMeal", 2);
                 startActivity(intent);
             }
         });
@@ -175,7 +175,7 @@ public class Home extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), food_data_view.class);
-                intent.putExtra("selectMeal", "3");
+                intent.putExtra("selectMeal", 3);
                 startActivity(intent);
             }
         });
@@ -207,17 +207,11 @@ public class Home extends Fragment {
                 sumPro = c.getDouble(2);
                 sumFat = c.getDouble(3);
             }
-            calVal.setText(String.format("%d", sumCal));
-            carVal.setText(String.format("%.2f", sumCar));
-            proVal.setText(String.format("%.2f", sumPro));
-            fatVal.setText(String.format("%.2f", sumFat));
         }
-        else{
-            calVal.setText("");
-            carVal.setText("");
-            proVal.setText("");
-            fatVal.setText("");
-        }
+        calVal.setText(String.format("%d", sumCal));
+        carVal.setText(String.format("%.2f", sumCar));
+        proVal.setText(String.format("%.2f", sumPro));
+        fatVal.setText(String.format("%.2f", sumFat));
         c.close();
 
         Cursor cb = db.rawQuery("select sum(calories) from nutrition where mealdate =? and meal=?", new String[]{today, "1"});
@@ -228,15 +222,23 @@ public class Home extends Fragment {
             }
             sumBr.setText(String.format("%d kcal", brSum));
         }
-        cb = db.rawQuery("select name, sum(carbohydrate), sum(protein), sum(fat) from Nutrition where Nutrition.mealdate=?"+" and meal=1;", new String[]{today});
+        cb = db.rawQuery("select sum(carbohydrate), sum(protein), sum(fat) from Nutrition where Nutrition.mealdate=?"+" and meal=1;", new String[]{today});
+        String bC = "0 g";
+        String bP = "0 g";
+        String bF = "0 g";
         if(cb != null){
             while(cb.moveToNext()){
-                brName.setText(cb.getString(0));
-                brCar.setText(cb.getString(1)+" g");
-                brPro.setText(cb.getString(2)+" g");
-                brFat.setText(cb.getString(3)+" g");
+                bC = cb.getString(0)+" g";
+                bP = cb.getString(1)+" g";
+                bF = cb.getString(2)+" g";
             }
         }
+        if(!bC.contains("null")) brCar.setText(bC);
+        else brCar.setText("");
+        if(!bP.contains("null")) brPro.setText(bP);
+        else brPro.setText("");
+        if(!bF.contains("null")) brFat.setText(bF);
+        else brFat.setText("");
         cb.close();
 
         Cursor cl = db.rawQuery("select sum(calories) from nutrition where mealdate =? and meal=?", new String[]{today, "2"});
@@ -247,15 +249,23 @@ public class Home extends Fragment {
             }
             sumLc.setText(String.format("%d kcal", lcSum));
         }
-        cl = db.rawQuery("select name, sum(carbohydrate), sum(protein), sum(fat) from Nutrition where Nutrition.mealdate=?"+" and meal=2;", new String[]{today});
+        cl = db.rawQuery("select sum(carbohydrate), sum(protein), sum(fat) from Nutrition where Nutrition.mealdate=?"+" and meal=2;", new String[]{today});
+        String lC = "0 g";
+        String lP = "0 g";
+        String lF = "0 g";
         if(cl != null){
             while(cl.moveToNext()){
-                lcName.setText(cl.getString(0));
-                lcCar.setText(cl.getString(1)+" g");
-                lcPro.setText(cl.getString(2)+" g");
-                lcFat.setText(cl.getString(3)+" g");
+                lC = cl.getString(0)+" g";
+                lP = cl.getString(1)+" g";
+                lF = cl.getString(2)+" g";
             }
         }
+        if(!lC.contains("null")) lcCar.setText(lC);
+        else lcCar.setText("");
+        if(!lP.contains("null")) lcPro.setText(lP);
+        else lcPro.setText("");
+        if(!lF.contains("null")) lcFat.setText(lF);
+        else lcFat.setText("");
         cl.close();
         Cursor cd = db.rawQuery("select sum(calories) from nutrition where mealdate =? and meal=?", new String[]{today, "3"});
         int dnSum = 0;
@@ -265,15 +275,23 @@ public class Home extends Fragment {
             }
             sumDn.setText(String.format("%d kcal", dnSum));
         }
-        cd = db.rawQuery("select name, sum(carbohydrate), sum(protein), sum(fat) from Nutrition where Nutrition.mealdate=?"+" and meal=3;", new String[]{today});
+        cd = db.rawQuery("select sum(carbohydrate), sum(protein), sum(fat) from Nutrition where Nutrition.mealdate=?"+" and meal=3;", new String[]{today});
+        String dC = "0 g";
+        String dP = "0 g";
+        String dF = "0 g";
         if(cd != null){
             while(cd.moveToNext()){
-                dnName.setText(cd.getString(0));
-                dnCar.setText(cd.getString(1)+" g");
-                dnPro.setText(cd.getString(2)+" g");
-                dnFat.setText(cd.getString(3)+" g");
+                dC = cd.getString(0)+" g";
+                dP = cd.getString(1)+" g";
+                dF = cd.getString(2)+" g";
             }
         }
+        if(!dC.contains("null")) dnCar.setText(dC);
+        else dnCar.setText("");
+        if(!dP.contains("null")) dnPro.setText(dP);
+        else dnPro.setText("");
+        if(!dF.contains("null")) dnFat.setText(dF);
+        else dnFat.setText("");
         cd.close();
     }
 }

@@ -38,5 +38,7 @@
     <string name="dinner">Dinner</string>
     <string name="no_data">No Data</string>
     <string name="foodList">음식 리스트</string>
+    <string name="show_details">Show Details</string>
+    <string name="pic">사진</string>
 
 </resources>

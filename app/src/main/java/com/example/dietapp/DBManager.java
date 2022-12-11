@@ -23,6 +23,7 @@ public class DBManager extends SQLiteOpenHelper {
     static final String COLUMN_CAR = "carbohydrate";
     static final String COLUMN_PRO = "protein";
     static final String COLUMN_FAT = "fat";
+    static final String COLUMN_QUANTITY = "quantity";
     static final String COLUMN_REVIEW = "review";
     static final String COLUMN_DATE = "mealdate";
     static final String COLUMN_TIME = "mealtime";
@@ -32,7 +33,7 @@ public class DBManager extends SQLiteOpenHelper {
 
     static final String CREATE_DB = "CREATE TABLE IF NOT EXISTS "+ TABLE_NAME+" ("+ COLUMN_ID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+COLUMN_WHEN
             +" INTEGER NOT NULL, "+COLUMN_NAME+" TEXT NOT NULL, "+COLUMN_CAL+" INTEGER NOT NULL, "+COLUMN_CAR+" REAL NOT NULL, "+COLUMN_PRO+" REAL NOT NULL, "+
-            COLUMN_FAT+" REAL NOT NULL, "+COLUMN_REVIEW+" TEXT, "+COLUMN_DATE+" DATE(10), "+COLUMN_TIME+" TEXT, "+COLUMN_IMG_DIR+" TEXT, "+COLUMN_ADDRESS+" TEXT);";
+            COLUMN_FAT+" REAL NOT NULL, "+COLUMN_QUANTITY+" INT, "+COLUMN_REVIEW+" TEXT, "+COLUMN_DATE+" DATE(10), "+COLUMN_TIME+" TEXT, "+COLUMN_IMG_DIR+" TEXT, "+COLUMN_ADDRESS+" TEXT);";
 
     public DBManager(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -54,7 +55,7 @@ public class DBManager extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
         db.execSQL("CREATE TABLE IF NOT EXISTS "+TABLE_NAME);
     }
-    public void insertData(String name, int when, int cal, double car, double pro, double fat, @Nullable String review,
+    public void insertData(String name, int when, int cal, double car, double pro, double fat, int quantity,@Nullable String review,
                            @Nullable String dateInfo, @Nullable String timeInfo, @Nullable String imgDir, @Nullable String address){
         SQLiteDatabase db = getWritableDatabase();
         ContentValues addValues = new ContentValues();
@@ -64,6 +65,7 @@ public class DBManager extends SQLiteOpenHelper {
         addValues.put(DBManager.COLUMN_CAR, car);
         addValues.put(DBManager.COLUMN_PRO, pro);
         addValues.put(DBManager.COLUMN_FAT, fat);
+        addValues.put(DBManager.COLUMN_QUANTITY, quantity);
         addValues.put(DBManager.COLUMN_REVIEW, review);
         addValues.put(DBManager.COLUMN_DATE, dateInfo);
         addValues.put(DBManager.COLUMN_TIME, timeInfo);

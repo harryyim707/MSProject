@@ -97,10 +97,8 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
             public void onClick(View v) {
                 Intent intent = new Intent();
                 String res = "("+resLat+", "+resLng+")";
-                System.out.println(res);
                 intent.putExtra("result", res);
                 intent.putExtra("place", resname);
-                System.out.println(name);
                 setResult(Activity.RESULT_OK, intent);
                 finish();
             }
