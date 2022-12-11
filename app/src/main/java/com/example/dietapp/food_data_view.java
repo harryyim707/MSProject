@@ -21,7 +21,7 @@ public class food_data_view extends AppCompatActivity {
     TextView name, cal, car, pro, fat, review, time, place;
 
     Intent intent = getIntent();
-    String selectMeal = intent.getStringExtra("selectMeal");
+    int selectMeal = intent.getExtras().getInt("selectMeal");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +48,9 @@ public class food_data_view extends AppCompatActivity {
         review = (TextView) findViewById(R.id.calval);
         time = (TextView) findViewById(R.id.carval);
         place = (TextView) findViewById(R.id.proval);
-        if(selectMeal =="1"){
-            Cursor cursor = db.rawQuery("select name, sum(calories), sum(carbohydrate), sum(protein), sum(fat), review, mealtime, address from Nutrition where Nutrition.mealdate=?"+" and meal=1;", new String[]{today});
+
+        if(selectMeal ==1){
+            Cursor cursor = db.rawQuery("select name, sum(calories), sum(carbohydrate), sum(protein), sum(fat), review, mealtime, address from Nutrition where Nutrition.mealdate==today and meal=1;", null);
             if(cursor != null){
                 while(cursor.moveToNext()){
                     name.setText(cursor.getString(0));
@@ -57,14 +58,14 @@ public class food_data_view extends AppCompatActivity {
                     car.setText(cursor.getString(2)+" g");
                     pro.setText(cursor.getString(3)+" g");
                     fat.setText(cursor.getString(4)+" g");
-                    review.setText(cursor.getString(5)+" g");
-                    time.setText(cursor.getString(6)+" g");
-                    place.setText(cursor.getString(7)+" g");
+                    review.setText(cursor.getString(5));
+                    time.setText(cursor.getString(6));
+                    place.setText(cursor.getString(7));
                 }
             }
         }
 
-        if(selectMeal == "2"){
+        if(selectMeal == 2){
             Cursor cursor = db.rawQuery("select name, sum(calories), sum(carbohydrate), sum(protein), sum(fat), review, mealtime, address from Nutrition where Nutrition.mealdate=?"+" and meal=2;", new String[]{today});
             if(cursor != null){
                 while(cursor.moveToNext()){
@@ -73,14 +74,14 @@ public class food_data_view extends AppCompatActivity {
                     car.setText(cursor.getString(2)+" g");
                     pro.setText(cursor.getString(3)+" g");
                     fat.setText(cursor.getString(4)+" g");
-                    review.setText(cursor.getString(5)+" g");
-                    time.setText(cursor.getString(6)+" g");
-                    place.setText(cursor.getString(7)+" g");
+                    review.setText(cursor.getString(5));
+                    time.setText(cursor.getString(6));
+                    place.setText(cursor.getString(7));
                 }
             }
         }
 
-        if(selectMeal == "3"){
+        if(selectMeal == 3){
             Cursor cursor = db.rawQuery("select name, sum(calories), sum(carbohydrate), sum(protein), sum(fat), review, mealtime, address from Nutrition where Nutrition.mealdate=?"+" and meal=3;", new String[]{today});
             if(cursor != null){
                 while(cursor.moveToNext()){
@@ -89,9 +90,9 @@ public class food_data_view extends AppCompatActivity {
                     car.setText(cursor.getString(2)+" g");
                     pro.setText(cursor.getString(3)+" g");
                     fat.setText(cursor.getString(4)+" g");
-                    review.setText(cursor.getString(5)+" g");
-                    time.setText(cursor.getString(6)+" g");
-                    place.setText(cursor.getString(7)+" g");
+                    review.setText(cursor.getString(5));
+                    time.setText(cursor.getString(6));
+                    place.setText(cursor.getString(7));
                 }
             }
         }

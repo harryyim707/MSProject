@@ -1,5 +1,6 @@
 package com.example.dietapp;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -10,10 +11,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -29,6 +34,8 @@ public class CalendarFragment extends Fragment {
     TextView today, br, brCal, brCar, brPro, brFat, lc, lcCal, lcCar, lcPro, lcFat, dn, dnCal, dnCar, dnPro, dnFat;
     CalendarView calendarView;
 
+
+    public String selectDate;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -69,6 +76,7 @@ public class CalendarFragment extends Fragment {
         }
         dbManager = new DBManager(getActivity(), DBManager.DB, null, DBManager.DB_VERSION);
         db = dbManager.getReadableDatabase();
+
     }
 
     @Override
@@ -76,63 +84,62 @@ public class CalendarFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_calendar, container, false);
         today = view.findViewById(R.id.todayDate);
+        calendarView = view.findViewById(R.id.calendarView);
 
-
-
-        calendarView =  view.findViewById(R.id.calendarView);
-
-        init();
+//        init();
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
-                String selectDate;
 
                 today.setText(year + "년" + (month + 1) + "월" + day + "일");
-                selectDate = Integer.toString(year) + "-" + Integer.toString(month+1) + "-" + Integer.toString(day);
+                selectDate = year + "-" + (month + 1) + "-" + day;
 
+                Intent intent = new Intent(getActivity(), FoodListView.class);
+                intent.putExtra("today", selectDate);
+                startActivity(intent);
 
             }
         });
         return view;
     }
 
-    private void init(){
-        Date currentTime = java.util.Calendar.getInstance().getTime();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        String selectDate = format.format(currentTime);
-        String tod = selectDate;
-        String[] date = selectDate.split("-");
-        today.setText(date[0]+"년"+date[1]+"월"+date[2]+"일");
-        Cursor cursor = db.rawQuery("select sum(calories), sum(carbohydrate), sum(protein), sum(fat) from Nutrition where Nutrition.mealdate=?"+" and meal=1;", new String[]{tod});
-        if(cursor != null){
-            while(cursor.moveToNext()){
-                brCal.setText(cursor.getString(0)+" kcal");
-                brCar.setText(cursor.getString(1)+" g");
-                brPro.setText(cursor.getString(2)+" g");
-                brFat.setText(cursor.getString(3)+" g");
-            }
-        }
-
-        cursor = db.rawQuery("select sum(calories), sum(carbohydrate), sum(protein), sum(fat) from Nutrition where Nutrition.mealdate=?"+" and meal=2;", new String[]{tod});
-        if(cursor != null){
-            while(cursor.moveToNext()){
-                lcCal.setText(cursor.getString(0)+" kcal");
-                lcCar.setText(cursor.getString(1)+" g");
-                lcPro.setText(cursor.getString(2)+" g");
-                lcFat.setText(cursor.getString(3)+" g");
-            }
-        }
-
-        cursor = db.rawQuery("select sum(calories), sum(carbohydrate), sum(protein), sum(fat) from Nutrition where Nutrition.mealdate=?"+" and meal=3;", new String[]{tod});
-        if(cursor != null){
-            while(cursor.moveToNext()){
-                dnCal.setText(cursor.getString(0)+" g");
-                dnCar.setText(cursor.getString(1)+" g");
-                dnPro.setText(cursor.getString(2)+" g");
-                dnFat.setText(cursor.getString(3)+" g");
-            }
-        }
-        cursor.close();
-    }
+//    private void init(){
+//        Date currentTime = java.util.Calendar.getInstance().getTime();
+//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+//        String selectDate = format.format(currentTime);
+//        String tod = selectDate;
+//        String[] date = selectDate.split("-");
+//        today.setText(date[0]+"년"+date[1]+"월"+date[2]+"일");
+//        Cursor cursor = db.rawQuery("select sum(calories), sum(carbohydrate), sum(protein), sum(fat) from Nutrition where Nutrition.mealdate=?"+" and meal=1;", new String[]{tod});
+//        if(cursor != null){
+//            while(cursor.moveToNext()){
+//                brCal.setText(cursor.getString(0)+" kcal");
+//                brCar.setText(cursor.getString(1)+" g");
+//                brPro.setText(cursor.getString(2)+" g");
+//                brFat.setText(cursor.getString(3)+" g");
+//            }
+//        }
+//
+//        cursor = db.rawQuery("select sum(calories), sum(carbohydrate), sum(protein), sum(fat) from Nutrition where Nutrition.mealdate=?"+" and meal=2;", new String[]{tod});
+//        if(cursor != null){
+//            while(cursor.moveToNext()){
+//                lcCal.setText(cursor.getString(0)+" kcal");
+//                lcCar.setText(cursor.getString(1)+" g");
+//                lcPro.setText(cursor.getString(2)+" g");
+//                lcFat.setText(cursor.getString(3)+" g");
+//            }
+//        }
+//
+//        cursor = db.rawQuery("select sum(calories), sum(carbohydrate), sum(protein), sum(fat) from Nutrition where Nutrition.mealdate=?"+" and meal=3;", new String[]{tod});
+//        if(cursor != null){
+//            while(cursor.moveToNext()){
+//                dnCal.setText(cursor.getString(0)+" g");
+//                dnCar.setText(cursor.getString(1)+" g");
+//                dnPro.setText(cursor.getString(2)+" g");
+//                dnFat.setText(cursor.getString(3)+" g");
+//            }
+//        }
+//        cursor.close();
+//    }
 }

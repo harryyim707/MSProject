@@ -37,5 +37,6 @@
     <string name="lunch">Lunch</string>
     <string name="dinner">Dinner</string>
     <string name="no_data">No Data</string>
+    <string name="foodList">음식 리스트</string>
 
 </resources>

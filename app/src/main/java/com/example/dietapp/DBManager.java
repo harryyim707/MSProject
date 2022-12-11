@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+
 public class DBManager extends SQLiteOpenHelper {
     Context context = null;
     private static DBManager dbManager = null;
@@ -78,5 +80,42 @@ public class DBManager extends SQLiteOpenHelper {
         return cursor;
     }
 
+    public ArrayList<InputItem> selectList(String today) {
+
+        ArrayList<InputItem> list = new ArrayList<InputItem>();
+        SQLiteDatabase db = null;
+        String [] col_names = { "when", "name", "cal", "cal", "car", "pro", "fat"};
+
+        Cursor cursor = db.rawQuery("select meal, name, sum(calories), sum(carbohydrate), sum(protein)from Nutrition where Nutrition.mealdate==today;", null);
+        try {
+            if(cursor!=null){
+
+                if(cursor.moveToFirst()){  //첫번째 레코드이동
+                    //다음 레코드가 없을 때까지 while문 돌림
+                    do{
+                        int when     = cursor.getInt(0);
+                        String name = cursor.getString(1);
+                        int cal  = cursor.getInt(2);
+                        int car  = cursor.getInt(3);
+                        int pro  = cursor.getInt(4);
+                        int fat  = cursor.getInt(5);
+
+                        // ArrayList넣기
+                        list.add(new InputItem(when, name, cal, car, pro, fat));
+
+                    }while(cursor.moveToNext()); //다음레코드로 이동
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if(cursor!=null)
+                cursor.close();
+            if(db!=null)
+                db.close();
+        }
+
+        return list;
+    }
 
 }
