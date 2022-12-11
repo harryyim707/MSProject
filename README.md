@@ -3,6 +3,7 @@ Mobile Software project of creating an android application for recording diets u
 
 ## 개발 목표
 * JAVA를 사용하여 간단한 안드로이드용 어플을 만들어 본다.
+* 식단 관리 앱을 만든다.
 
 ## Features
 ### 식사 입력하기
