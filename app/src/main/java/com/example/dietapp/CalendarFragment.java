@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,7 +34,7 @@ public class CalendarFragment extends Fragment {
     SQLiteDatabase db = null;
     TextView today, br, brCal, brCar, brPro, brFat, lc, lcCal, lcCar, lcPro, lcFat, dn, dnCal, dnCar, dnPro, dnFat;
     CalendarView calendarView;
-
+    ImageButton B, L, D;
 
     public String selectDate;
     // TODO: Rename parameter arguments, choose names that match
@@ -105,13 +106,15 @@ public class CalendarFragment extends Fragment {
 
         calendarView =  view.findViewById(R.id.calendarView);
 
+        B = view.findViewById(R.id.seemorebr);
+        L = view.findViewById(R.id.seemorelc);
+        D = view.findViewById(R.id.seemoredn);
+
         init();
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
-                String selectDate;
-
                 today.setText(year + "년" + (month + 1) + "월" + day + "일");
                 selectDate = Integer.toString(year) + "-" + Integer.toString(month+1) + "-" + Integer.toString(day);
 
@@ -183,17 +186,46 @@ public class CalendarFragment extends Fragment {
                 cursor.close();
             }
         });
+
+        B.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), food_data_view.class);
+                intent.putExtra("selectMeal", 1);
+                intent.putExtra("date", selectDate);
+                startActivity(intent);
+            }
+        });
+        L.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), food_data_view.class);
+                intent.putExtra("selectMeal", 2);
+                intent.putExtra("date", selectDate);
+                startActivity(intent);
+            }
+        });
+        D.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), food_data_view.class);
+                intent.putExtra("selectMeal", 3);
+                intent.putExtra("date", selectDate);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 
     private void init(){
         Date currentTime = java.util.Calendar.getInstance().getTime();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        String selectDate = format.format(currentTime);
-        String tod = selectDate;
-        String[] date = selectDate.split("-");
+        String selDate = format.format(currentTime);
+        String tod = selDate;
+        String[] date = selDate.split("-");
         today.setText(date[0]+"년"+date[1]+"월"+date[2]+"일");
-        Cursor cursor = db.rawQuery("select sum(calories), sum(carbohydrate), sum(protein), sum(fat) from Nutrition where Nutrition.mealdate=?"+" and meal=1;", new String[]{tod});
+        selectDate = tod;
+        Cursor cursor = db.rawQuery("select sum(calories), sum(carbohydrate), sum(protein), sum(fat) from Nutrition where Nutrition.mealdate=?"+" and meal=1;", new String[]{selectDate});
         String bCal = "0 kcal";
         String bC = "0 g";
         String bP = "0 g";

@@ -160,6 +160,7 @@ public class Home extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), food_data_view.class);
                 intent.putExtra("selectMeal", 1);
+                intent.putExtra("date", today);
                 startActivity(intent);
             }
         });
@@ -168,6 +169,7 @@ public class Home extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), food_data_view.class);
                 intent.putExtra("selectMeal", 2);
+                intent.putExtra("date", today);
                 startActivity(intent);
             }
         });
@@ -176,6 +178,7 @@ public class Home extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), food_data_view.class);
                 intent.putExtra("selectMeal", 3);
+                intent.putExtra("date", today);
                 startActivity(intent);
             }
         });

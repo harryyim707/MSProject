@@ -30,6 +30,7 @@ public class SelectFood extends AppCompatActivity {
     String url;
     ArrayList<SingleItem> itemList;
     SingleItemAdapter adapter = null;
+    TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,10 @@ public class SelectFood extends AppCompatActivity {
         String name = intent.getStringExtra("name");
 
         foodList = findViewById(R.id.listView);
+        textView = findViewById(R.id.nodata);
         itemList = new ArrayList<SingleItem>();
+
+        textView.setText("Loading...");
 
         NewThread newThread = new NewThread();
         newThread.execute();
@@ -80,37 +84,45 @@ public class SelectFood extends AppCompatActivity {
             try{
                 Document doc = Jsoup.connect(url).get();
                 Elements contents = doc.select("td.borderBottom");
-                for(Element c : contents){
-                    String name = c.getElementsByClass("prominent").text();
-                    String brand = c.getElementsByClass("brand").text();
+                if(!contents.isEmpty()){
+                    textView.setVisibility(View.INVISIBLE);
+                    for(Element c : contents){
+                        String name = c.getElementsByClass("prominent").text();
+                        String brand = c.getElementsByClass("brand").text();
 
-                    Elements divTag = c.select("div");
-                    String[] info = divTag.text().split(" ",15);
+                        Elements divTag = c.select("div");
+                        String[] info = divTag.text().split(" ",15);
 
-                    String servingSize = info[0];
-                    String servingWeight = info[1];
+                        String servingSize = info[0];
+                        String servingWeight = info[1];
 
-                    String standard = info[0];
-                    String weight = info[1];
+                        String standard = info[0];
+                        String weight = info[1];
 
-                    String calories = info[4];
-                    int idx_cal = calories.indexOf("k");
-                    Integer cal = Integer.parseInt(calories.substring(0, idx_cal));
+                        String calories = info[4];
+                        int idx_cal = calories.indexOf("k");
+                        Integer cal = Integer.parseInt(calories.substring(0, idx_cal));
 
-                    String fats = info[7];
-                    int idx_fats = fats.indexOf("g");
-                    Float fat = Float.parseFloat(fats.substring(0, idx_fats));
+                        String fats = info[7];
+                        int idx_fats = fats.indexOf("g");
+                        Float fat = Float.parseFloat(fats.substring(0, idx_fats));
 
-                    String carbo = info[10];
-                    int idx_carbo = carbo.indexOf("g");
-                    Float car = Float.parseFloat(carbo.substring(0, idx_carbo));
+                        String carbo = info[10];
+                        int idx_carbo = carbo.indexOf("g");
+                        Float car = Float.parseFloat(carbo.substring(0, idx_carbo));
 
-                    String protein = info[13];
-                    int idx_pro = protein.indexOf("g");
-                    Float pro = Float.parseFloat(protein.substring(0, idx_pro));
+                        String protein = info[13];
+                        int idx_pro = protein.indexOf("g");
+                        Float pro = Float.parseFloat(protein.substring(0, idx_pro));
 
-                    itemList.add(new SingleItem(name, brand, standard, weight, cal, car, pro, fat));
+                        itemList.add(new SingleItem(name, brand, standard, weight, cal, car, pro, fat));
+                    }
                 }
+                else{
+                    textView.setVisibility(View.VISIBLE);
+                    textView.setText("No Data");
+                }
+
             } catch (IOException e) {
                 e.printStackTrace();
             }

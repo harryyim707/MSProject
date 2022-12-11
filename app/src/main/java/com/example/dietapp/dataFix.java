@@ -53,7 +53,7 @@ public class dataFix extends AppCompatActivity {
     String address, where;
     int when;
 
-    String id, name, cal, car, pro, fat, rev, time, place, pic;
+    String id, name, cal, car, pro, fat, rev, time, place, pic, date;
 
     String info;
     private static final int REQUEST_IMAGE_CAPTURE = 672;
@@ -84,6 +84,7 @@ public class dataFix extends AppCompatActivity {
         place = intent.getStringExtra("place");
         pic = intent.getStringExtra("imgDir");
         number = Integer.parseInt(intent.getStringExtra("quantity"));
+        date = intent.getStringExtra("date");
 
         srchBtn = (ImageButton) findViewById(R.id.searchBtn);
         foodName = (EditText) findViewById(R.id.foodName);
