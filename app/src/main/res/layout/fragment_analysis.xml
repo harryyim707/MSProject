@@ -31,7 +31,16 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
+                    android:background="@drawable/button_shape"
+                    android:fontFamily="@font/gmarketsans_bold"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
                     android:text="TODAY"
+                    android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +51,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
+                    android:background="@drawable/button_shape"
+                    android:fontFamily="@font/gmarketsans_bold"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
                     android:text="WEEK"
+                    android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/btnMonth"
                     app:layout_constraintStart_toEndOf="@+id/btnToday"
@@ -55,7 +73,16 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="24dp"
                     android:layout_marginBottom="16dp"
+                    android:background="@drawable/button_shape"
+                    android:fontFamily="@font/gmarketsans_bold"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
                     android:text="MONTH"
+                    android:textColor="@color/white"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -65,67 +92,27 @@
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/chart"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="339dp"
+                android:layout_marginBottom="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/textView36"
                 android:layout_width="match_parent"
-                android:layout_height="28dp"
-                android:text=" Total Calories" />
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/gmarketsans_bold"
+                android:gravity="center"
+                android:text=" Total Calories"
+                android:textAlignment="center"
+                android:textColor="#34314c"
+                android:textSize="16sp" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="250dp">
-
-                <TextView
-                    android:id="@+id/showTotCal"
-                    android:layout_width="100dp"
-                    android:layout_height="30dp"
-                    android:layout_marginEnd="68dp"
-                    android:layout_marginBottom="60dp"
-                    android:text="Cal (kcal)"
-                    android:textAlignment="center"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-
-                <TextView
-                    android:id="@+id/textView34"
-                    android:layout_width="80dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="46dp"
-                    android:layout_marginBottom="60dp"
-                    android:text="total"
-                    android:textAlignment="center"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/showTotCal"
-                    app:layout_constraintHorizontal_bias="0.008"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <TextView
-                    android:id="@+id/textView31"
-                    android:layout_width="80dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="46dp"
-                    android:layout_marginBottom="16dp"
-                    android:text="Dinner"
-                    android:textAlignment="center"
-                    app:layout_constraintBottom_toTopOf="@+id/textView34"
-                    app:layout_constraintEnd_toStartOf="@+id/showTotDn"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <TextView
-                    android:id="@+id/showTotDn"
-                    android:layout_width="100dp"
-                    android:layout_height="30dp"
-                    android:layout_marginEnd="70dp"
-                    android:layout_marginBottom="16dp"
-                    android:text="Cal (kcal)"
-                    android:textAlignment="center"
-                    app:layout_constraintBottom_toTopOf="@+id/showTotCal"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                android:layout_height="212dp">
 
                 <TextView
                     android:id="@+id/textView24"
@@ -138,34 +125,82 @@
                     android:textAlignment="center"
                     app:layout_constraintBottom_toTopOf="@+id/textView29"
                     app:layout_constraintEnd_toStartOf="@+id/showTotBr"
-                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintHorizontal_bias="0.944"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintVertical_bias="0.379" />
 
                 <TextView
                     android:id="@+id/showTotBr"
                     android:layout_width="100dp"
                     android:layout_height="30dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="70dp"
+                    android:layout_marginEnd="52dp"
                     android:text="Cal (kcal)"
                     android:textAlignment="center"
                     app:layout_constraintBottom_toTopOf="@+id/showTotLc"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintVertical_bias="0.379" />
 
                 <TextView
                     android:id="@+id/showTotLc"
                     android:layout_width="100dp"
                     android:layout_height="30dp"
-                    android:layout_marginEnd="70dp"
+                    android:layout_marginEnd="52dp"
                     android:layout_marginBottom="16dp"
                     android:text="Cal (kcal)"
                     android:textAlignment="center"
                     app:layout_constraintBottom_toTopOf="@+id/showTotDn"
                     app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:id="@+id/showTotCal"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="52dp"
+                    android:layout_marginBottom="28dp"
+                    android:text="Cal (kcal)"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:id="@+id/showTotDn"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="52dp"
+                    android:layout_marginBottom="12dp"
+                    android:text="Cal (kcal)"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toTopOf="@+id/showTotCal"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView31"
+                    android:layout_width="80dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="46dp"
+                    android:layout_marginBottom="12dp"
+                    android:text="Dinner"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toTopOf="@+id/textView34"
+                    app:layout_constraintEnd_toStartOf="@+id/showTotDn"
+                    app:layout_constraintHorizontal_bias="0.127"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView34"
+                    android:layout_width="80dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="46dp"
+                    android:layout_marginBottom="28dp"
+                    android:text="total"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/showTotCal"
+                    app:layout_constraintHorizontal_bias="0.12"
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
                     android:id="@+id/textView29"
@@ -177,8 +212,9 @@
                     android:textAlignment="center"
                     app:layout_constraintBottom_toTopOf="@+id/textView31"
                     app:layout_constraintEnd_toStartOf="@+id/showTotLc"
-                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintHorizontal_bias="0.12"
                     app:layout_constraintStart_toStartOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
