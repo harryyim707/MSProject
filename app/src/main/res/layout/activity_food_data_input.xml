@@ -10,6 +10,7 @@
         android:id="@+id/scrollView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,22 +20,22 @@
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="1dp"
+            android:layout_marginBottom="5dp"
             android:orientation="vertical">
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-
                 android:layout_height="194dp"
+                android:padding="5dp"
                 android:background="@drawable/layout_border"
                 app:layout_constraintEnd_toStartOf="@+id/button14"
                 app:layout_constraintStart_toStartOf="@+id/button14">
 
                 <TextView
                     android:id="@+id/foodInfo"
-                    android:layout_width="134dp"
-                    android:layout_height="17dp"
+                    android:layout_width="131dp"
+                    android:layout_height="23dp"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="24dp"
                     android:text="@string/food_info"
@@ -95,15 +96,19 @@
 
                 <Button
                     android:id="@+id/apply"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:background="@drawable/button_shape"
-                    android:fontFamily="@font/blackhansans"
+                    android:layout_width="72dp"
+                    android:layout_height="36dp"
+                    android:layout_marginBottom="23dp"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/button_shape2"
+                    android:fontFamily="@font/gmarketsansmedium"
+                    android:scaleType="fitCenter"
                     android:text="@string/apply"
                     android:textColor="#FFFFFF"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.326"
                     app:layout_constraintStart_toEndOf="@+id/foodAmount" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -111,6 +116,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="156dp"
+                android:padding="5dp"
                 android:background="@drawable/layout_border">
 
                 <TextView
@@ -234,6 +240,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="121dp"
+                android:padding="5dp"
                 android:background="@drawable/layout_border">
 
                 <TextView
@@ -278,12 +285,14 @@
                     android:layout_height="49dp"
                     android:background="#00FFFFFF"
                     android:contentDescription="@string/searchBtn"
+                    android:padding="10dp"
+                    android:scaleType="fitCenter"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.157"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toEndOf="@+id/inputPlace"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.953"
+                    app:layout_constraintVertical_bias="0.858"
                     app:srcCompat="@drawable/search" />
 
                 <TextView
@@ -344,6 +353,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="62dp"
+                android:padding="5dp"
                 android:background="@drawable/layout_border">
 
                 <TextView
@@ -400,15 +410,20 @@
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="209dp"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/button_border"
                     android:text="@string/delete"
-                    android:textColor="#795548" />
+                    android:textColor="#FF8243"
+                    android:textSize="16sp" />
 
                 <Button
                     android:id="@+id/saveBtn"
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/save" />
+                    android:background="@drawable/button_border"
+                    android:text="@string/save"
+                    android:textColor="#A0D995"
+                    android:textSize="16sp" />
             </LinearLayout>
 
         </LinearLayout>

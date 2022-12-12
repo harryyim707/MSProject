@@ -24,7 +24,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/summaryoftheday"
                 android:layout_width="409dp"
-                android:layout_height="115dp"
+                android:layout_height="123dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/layout_border"
                 android:orientation="vertical"
@@ -41,7 +41,7 @@
                     android:fontFamily="@font/gmarketsansmedium"
                     android:text="Summary of the Day"
                     android:textAlignment="center"
-                    android:textColor="#34314c"
+                    android:textColor="#2C352A"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -60,6 +60,7 @@
                     android:layout_marginBottom="16dp"
                     android:text="Calories"
                     android:textAlignment="center"
+                    android:textColor="#809A6F"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -77,14 +78,15 @@
                     android:layout_marginBottom="16dp"
                     android:text="Carbohydrates"
                     android:textAlignment="center"
+                    android:textColor="#809A6F"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/proteins"
-                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintHorizontal_bias="0.6"
                     app:layout_constraintStart_toEndOf="@+id/calories"
                     app:layout_constraintTop_toBottomOf="@+id/head"
-                    app:layout_constraintVertical_bias="0.4" />
+                    app:layout_constraintVertical_bias="0.378" />
 
                 <TextView
                     android:id="@+id/proteins"
@@ -95,6 +97,7 @@
                     android:layout_marginBottom="12dp"
                     android:text="Proteins"
                     android:textAlignment="center"
+                    android:textColor="#809A6F"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -113,6 +116,7 @@
                     android:layout_marginBottom="16dp"
                     android:text="Fats"
                     android:textAlignment="center"
+                    android:textColor="#809A6F"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -244,10 +248,10 @@
                         android:text="TextView"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.853"
+                        app:layout_constraintHorizontal_bias="0.756"
                         app:layout_constraintStart_toEndOf="@+id/breakfast"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.248" />
+                        app:layout_constraintVertical_bias="0.25" />
 
                     <LinearLayout
                         android:layout_width="352dp"
@@ -274,7 +278,7 @@
                             android:fontFamily="@font/blackhansans"
                             android:gravity="center"
                             android:text="@string/show_details"
-                            android:textColor="#ffc952" />
+                            android:textColor="#EADB41" />
 
                         <TextView
                             android:id="@+id/brCar"
@@ -370,10 +374,10 @@
                         android:text="TextView"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.914"
+                        app:layout_constraintHorizontal_bias="0.814"
                         app:layout_constraintStart_toEndOf="@+id/lunch"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.302" />
+                        app:layout_constraintVertical_bias="0.283" />
 
                     <LinearLayout
                         android:layout_width="355dp"
@@ -400,7 +404,7 @@
                             android:background="@drawable/button_border"
                             android:fontFamily="@font/blackhansans"
                             android:text="@string/show_details"
-                            android:textColor="#ffc952" />
+                            android:textColor="#EADB41" />
 
                         <TextView
                             android:id="@+id/lcCar"
@@ -458,18 +462,18 @@
                         android:layout_height="50dp"
                         android:layout_marginTop="2dp"
                         android:layout_marginBottom="20dp"
+                        android:adjustViewBounds="true"
                         android:background="#00FFFFFF"
                         android:contentDescription="@string/add_button"
-                        android:src="@drawable/addbutton"
-                        android:adjustViewBounds="true"
-                        android:scaleType="fitCenter"
                         android:padding="8dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/addbutton"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.949"
+                        app:layout_constraintHorizontal_bias="0.891"
                         app:layout_constraintStart_toEndOf="@+id/dinner"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.135" />
+                        app:layout_constraintVertical_bias="0.224" />
 
                     <TextView
                         android:id="@+id/dinner"
@@ -492,15 +496,14 @@
                         android:id="@+id/sumDn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="189dp"
-                        android:layout_marginEnd="76dp"
+                        android:layout_marginStart="124dp"
                         android:text="TextView"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintHorizontal_bias="0.104"
                         app:layout_constraintStart_toEndOf="@+id/dinner"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.3" />
+                        app:layout_constraintVertical_bias="0.263" />
 
                     <LinearLayout
                         android:layout_width="352dp"
@@ -525,7 +528,7 @@
                             android:background="@drawable/button_border"
                             android:fontFamily="@font/blackhansans"
                             android:text="@string/show_details"
-                            android:textColor="#ffc952" />
+                            android:textColor="#EADB41" />
 
                         <TextView
                             android:id="@+id/dnCar"
