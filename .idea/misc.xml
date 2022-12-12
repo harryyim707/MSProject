@@ -20,11 +20,11 @@
         <entry key="app/src/main/res/layout/calendar.xml" value="0.173046875" />
         <entry key="app/src/main/res/layout/footer.xml" value="0.125" />
         <entry key="app/src/main/res/layout/fragment_analysis.xml" value="0.1864754098360656" />
-        <entry key="app/src/main/res/layout/fragment_calendar.xml" value="0.1864754098360656" />
+        <entry key="app/src/main/res/layout/fragment_calendar.xml" value="0.22034686979700308" />
         <entry key="app/src/main/res/layout/fragment_food_data_input.xml" value="0.25234375" />
         <entry key="app/src/main/res/layout/fragment_food_input.xml" value="0.25234375" />
         <entry key="app/src/main/res/layout/fragment_get_calendar.xml" value="0.173828125" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2005035400390625" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.2243377685546875" />
         <entry key="app/src/main/res/layout/fragment_main_menu_analisys.xml" value="0.26286010742187493" />
         <entry key="app/src/main/res/layout/fragment_main_menu_calendar.xml" value="0.126171875" />
         <entry key="app/src/main/res/layout/fragment_main_menu_home.xml" value="0.251171875" />

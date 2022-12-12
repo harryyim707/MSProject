@@ -427,11 +427,11 @@ public class AnalysisFragment extends Fragment {
 
     private void setChart() {
         carbo = new BarDataSet(getCarEntries(), "Carbohydrate");
-        carbo.setColor(getActivity().getResources().getColor(R.color.purple_200));
+        carbo.setColor(getActivity().getResources().getColor(R.color.paradise_green));
         pro = new BarDataSet(getProEntries(), "Protein");
-        pro.setColor(Color.CYAN);
+        pro.setColor(Color.parseColor("#f8c291"));
         fat = new BarDataSet(getFatEntries(), "Fat");
-        fat.setColor(Color.GREEN);
+        fat.setColor(Color.parseColor("#60a3bc"));
         BarData data = new BarData(carbo, pro, fat);
         barChart.setData(data);
         barChart.getDescription().setEnabled(false);
@@ -443,8 +443,8 @@ public class AnalysisFragment extends Fragment {
         xAxis.setGranularityEnabled(true);
         barChart.setVisibleXRangeMaximum(3);
         float barSpace = 0.1f;
-        float groupSpace = 0.5f;
-        data.setBarWidth(0.15f);
+        float groupSpace = 0.4f;
+        data.setBarWidth(0.10f);
         barChart.getXAxis().setAxisMinimum(0);
         barChart.animate();
         barChart.groupBars(0, groupSpace, barSpace);
