@@ -23,7 +23,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/summaryoftheday"
-                android:layout_width="409dp"
+                android:layout_width="match_parent"
                 android:layout_height="123dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/layout_border"
@@ -61,7 +61,7 @@
                     android:text="Calories"
                     android:textAlignment="center"
                     android:textColor="#809A6F"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -72,14 +72,14 @@
                     android:id="@+id/carbo"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="8dp"
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
                     android:text="Carbohydrates"
                     android:textAlignment="center"
                     android:textColor="#809A6F"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/proteins"
@@ -98,31 +98,31 @@
                     android:text="Proteins"
                     android:textAlignment="center"
                     android:textColor="#809A6F"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/fats"
-                    app:layout_constraintHorizontal_bias="0.98"
+                    app:layout_constraintHorizontal_bias="0.933"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/head"
-                    app:layout_constraintVertical_bias="0.342" />
+                    app:layout_constraintVertical_bias="0.34" />
 
                 <TextView
                     android:id="@+id/fats"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:layout_marginEnd="32dp"
+                    android:layout_marginEnd="36dp"
                     android:layout_marginBottom="16dp"
                     android:text="Fats"
                     android:textAlignment="center"
                     android:textColor="#809A6F"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/head"
-                    app:layout_constraintVertical_bias="0.419" />
+                    app:layout_constraintVertical_bias="0.375" />
 
                 <TextView
                     android:id="@+id/cal_val"
@@ -188,7 +188,7 @@
 
             <LinearLayout
                 android:id="@+id/breakfastContainer"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/layout_border"
@@ -199,7 +199,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/breakfast_layout"
-                    android:layout_width="409dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="#80FFFFFF"
                     android:orientation="horizontal">
@@ -226,7 +226,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginTop="8dp"
-                        android:layout_marginEnd="16dp"
+                        android:layout_marginEnd="24dp"
                         android:adjustViewBounds="true"
                         android:background="#00FFFFFF"
                         android:contentDescription="@string/add_button"
@@ -235,10 +235,10 @@
                         android:src="@drawable/addbutton"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.923"
+                        app:layout_constraintHorizontal_bias="0.934"
                         app:layout_constraintStart_toEndOf="@+id/breakfast"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.076" />
+                        app:layout_constraintVertical_bias="0.08" />
 
                     <TextView
                         android:id="@+id/sumBr"
@@ -254,7 +254,7 @@
                         app:layout_constraintVertical_bias="0.25" />
 
                     <LinearLayout
-                        android:layout_width="352dp"
+                        android:layout_width="match_parent"
                         android:layout_height="62dp"
                         android:layout_gravity="center"
                         android:layout_marginStart="24dp"
@@ -315,7 +315,7 @@
 
             <LinearLayout
                 android:id="@+id/lunchContainer"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="167dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/layout_border"
@@ -326,7 +326,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/lunch_layout"
-                    android:layout_width="409dp"
+                    android:layout_width="match_parent"
                     android:layout_height="179dp"
                     android:orientation="horizontal">
 
@@ -335,13 +335,13 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginTop="8dp"
-                        android:layout_marginEnd="16dp"
+                        android:layout_marginEnd="24dp"
+                        android:adjustViewBounds="true"
                         android:background="#00FFFFFF"
                         android:contentDescription="@string/add_button"
-                        android:src="@drawable/addbutton"
-                        android:adjustViewBounds="true"
-                        android:scaleType="fitCenter"
                         android:padding="8dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/addbutton"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.942"
@@ -380,7 +380,7 @@
                         app:layout_constraintVertical_bias="0.283" />
 
                     <LinearLayout
-                        android:layout_width="355dp"
+                        android:layout_width="match_parent"
                         android:layout_height="63dp"
                         android:layout_gravity="center"
                         android:layout_marginStart="24dp"
@@ -441,7 +441,7 @@
 
             <LinearLayout
                 android:id="@+id/dinnerContainer"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="161dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/layout_border"
@@ -452,7 +452,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/dinner_layout"
-                    android:layout_width="409dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
@@ -461,6 +461,7 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginTop="2dp"
+                        android:layout_marginEnd="24dp"
                         android:layout_marginBottom="20dp"
                         android:adjustViewBounds="true"
                         android:background="#00FFFFFF"
@@ -470,10 +471,10 @@
                         android:src="@drawable/addbutton"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.891"
+                        app:layout_constraintHorizontal_bias="0.944"
                         app:layout_constraintStart_toEndOf="@+id/dinner"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.224" />
+                        app:layout_constraintVertical_bias="0.213" />
 
                     <TextView
                         android:id="@+id/dinner"
@@ -500,13 +501,13 @@
                         android:text="TextView"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.104"
+                        app:layout_constraintHorizontal_bias="0.031"
                         app:layout_constraintStart_toEndOf="@+id/dinner"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.263" />
+                        app:layout_constraintVertical_bias="0.27" />
 
                     <LinearLayout
-                        android:layout_width="352dp"
+                        android:layout_width="match_parent"
                         android:layout_height="63dp"
                         android:layout_marginStart="24dp"
                         android:layout_marginEnd="24dp"

@@ -45,7 +45,7 @@
 
                 <EditText
                     android:id="@+id/foodAmount"
-                    android:layout_width="255dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_marginStart="32dp"
                     android:layout_marginBottom="16dp"
@@ -77,7 +77,7 @@
 
                 <EditText
                     android:id="@+id/foodName"
-                    android:layout_width="205dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_marginStart="32dp"
                     android:layout_marginBottom="16dp"
@@ -98,6 +98,7 @@
                     android:id="@+id/apply"
                     android:layout_width="72dp"
                     android:layout_height="36dp"
+                    android:layout_marginStart="8dp"
                     android:layout_marginBottom="23dp"
                     android:adjustViewBounds="true"
                     android:background="@drawable/button_shape2"
@@ -255,7 +256,7 @@
 
                 <EditText
                     android:id="@+id/foodReview"
-                    android:layout_width="356dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="57dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginBottom="16dp"

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DietApp</string>
+    <string name="app_name">FooDiary</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="food_info">음식 정보</string>

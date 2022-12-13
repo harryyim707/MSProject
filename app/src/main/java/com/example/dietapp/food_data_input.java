@@ -162,18 +162,23 @@ public class food_data_input extends AppCompatActivity {
                 dateInfo = format.format(currentTime);
                 inputTime = timeInput.getText().toString();
                 if (!inputTime.equals("")) {
-                    String[] t = inputTime.split(":");
-                    if (Integer.parseInt(t[0]) < 10 || Integer.parseInt(t[1]) < 10) {
-                        if (Integer.parseInt(t[0]) < 10) {
-                            int tmp = Integer.parseInt(t[0]);
-                            t[0] = "0" + tmp;
+                    if(inputTime.contains(":")){
+                        String[] t = inputTime.split(":");
+                        if (Integer.parseInt(t[0]) < 10 || Integer.parseInt(t[1]) < 10) {
+                            if (Integer.parseInt(t[0]) < 10) {
+                                int tmp = Integer.parseInt(t[0]);
+                                t[0] = "0" + tmp;
+                            }
+                            if (Integer.parseInt(t[1]) < 10) {
+                                int tmp = Integer.parseInt(t[1]);
+                                t[1] = "0" + tmp;
+                            }
                         }
-                        if (Integer.parseInt(t[1]) < 10) {
-                            int tmp = Integer.parseInt(t[1]);
-                            t[1] = "0" + tmp;
-                        }
+                        timeInfo = t[0] + t[1];
                     }
-                    timeInfo = t[0] + t[1];
+                    else{
+                        timeInfo = inputTime;
+                    }
                 } else {
                     timeInfo = null;
                 }
