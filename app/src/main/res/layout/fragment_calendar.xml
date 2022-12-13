@@ -13,21 +13,30 @@
         <FrameLayout
             android:id="@+id/menu_frame_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="#39FFFFFF">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FFFFFF"
+                android:background="#39FFFFFF"
                 android:orientation="vertical"
-                tools:context=".calendarPage"
-                android:paddingBottom="40dp">
+                android:paddingBottom="40dp"
+                tools:context=".calendarPage">
 
                 <TextView
                     android:id="@+id/todayDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="247dp"
+                    android:layout_height="44dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/button_border"
+                    android:fontFamily="@font/nanumbarungothic_bold"
+                    android:gravity="center"
+                    android:padding="5dp"
                     android:textAlignment="center"
+                    android:textColor="#444C55"
                     android:textSize="24sp"
                     app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
                     app:layout_constraintTop_toBottomOf="@+id/calendarView"
@@ -39,51 +48,59 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:theme="@style/CalendarViewTheme"/>
+                    android:background="@drawable/layout_border"
+                    android:theme="@style/CalendarViewTheme" />
 
                 <LinearLayout
                     android:id="@+id/linearLayout2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/layout_border"
                     android:orientation="vertical"
-                    android:paddingTop="20dp"
+                    android:paddingTop="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:paddingTop="20dp">
-
-                        <TextView
-                            android:id="@+id/brName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/breakfast"
-                            android:textAlignment="center"
-                            android:layout_gravity="center"
-                            android:layout_weight="8"/>
-
-                        <ImageButton
-                            android:id="@+id/seemorebr"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            android:src="@drawable/arrow_right"
-                            android:contentDescription="@string/app_name"/>
-                    </LinearLayout>
 
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingTop="20dp">
+                        android:paddingTop="10dp">
+
+                        <TextView
+                            android:id="@+id/brName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="37dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="8"
+                            android:fontFamily="@font/gmarketsans_bold"
+                            android:gravity="center"
+                            android:text="@string/breakfast"
+                            android:textAlignment="center"
+                            android:textColor="#90C8AC"
+                            android:textSize="20sp" />
+
+                        <ImageButton
+                            android:id="@+id/seemorebr"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center|right"
+                            android:layout_margin="6dp"
+                            android:backgroundTint="#F5F0BB"
+                            android:contentDescription="@string/app_name"
+                            android:foregroundGravity="center"
+                            android:src="@drawable/arrow_right" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="10dp">
 
                         <TextView
                             android:id="@+id/brCal"
@@ -125,31 +142,39 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingTop="20dp">
+                        android:paddingTop="10dp">
 
                         <TextView
                             android:id="@+id/lcName"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="34dp"
+                            android:layout_gravity="center"
                             android:layout_weight="8"
+                            android:fontFamily="@font/gmarketsans_bold"
+                            android:gravity="center"
                             android:text="@string/lunch"
-                            android:textAlignment="center" />
+                            android:textAlignment="center"
+                            android:textColor="#90C8AC"
+                            android:textSize="20sp" />
+
                         <ImageButton
                             android:id="@+id/seemorelc"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            android:src="@drawable/arrow_right"
-                            android:contentDescription="@string/app_name"/>
+                            android:layout_gravity="center|right"
+                            android:layout_margin="6dp"
+                            android:backgroundTint="#F5F0BB"
+                            android:contentDescription="@string/app_name"
+                            android:src="@drawable/arrow_right" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingTop="20dp">
+                        android:paddingTop="10dp">
 
                         <TextView
                             android:id="@+id/lcCal"
@@ -193,22 +218,30 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:paddingTop="20dp">
+                        android:paddingTop="10dp">
 
                         <TextView
                             android:id="@+id/dnName"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="37dp"
+                            android:layout_gravity="center"
                             android:layout_weight="8"
+                            android:fontFamily="@font/gmarketsans_bold"
+                            android:gravity="center"
                             android:text="@string/dinner"
-                            android:textAlignment="center" />
+                            android:textAlignment="center"
+                            android:textColor="#90C8A0"
+                            android:textSize="20sp" />
+
                         <ImageButton
                             android:id="@+id/seemoredn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="right"
-                            android:src="@drawable/arrow_right"
-                            android:contentDescription="@string/app_name"/>
+                            android:layout_gravity="center|right"
+                            android:layout_margin="6dp"
+                            android:backgroundTint="#F5F0BB"
+                            android:contentDescription="@string/app_name"
+                            android:src="@drawable/arrow_right" />
 
                     </LinearLayout>
 
@@ -216,7 +249,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingTop="20dp">
+                        android:paddingTop="10dp">
 
                         <TextView
                             android:id="@+id/dnCal"

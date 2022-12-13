@@ -115,7 +115,7 @@ public class CalendarFragment extends Fragment {
 
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
-                today.setText(year + "년" + (month + 1) + "월" + day + "일");
+                today.setText(year + "년 " + (month + 1) + "월 " + day + "일");
                 selectDate = Integer.toString(year) + "-" + Integer.toString(month+1) + "-" + Integer.toString(day);
 
                 Cursor cursor = db.rawQuery("select sum(calories), sum(carbohydrate), sum(protein), sum(fat) from Nutrition where Nutrition.mealdate=?"+" and meal=1;", new String[]{selectDate});

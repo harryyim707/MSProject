@@ -18,6 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="9"
+            android:background="@drawable/text_border"
+            android:gravity="center"
             android:hint="Enter the Address."
             android:minHeight="48dp" />
 
@@ -26,7 +28,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Search" />
+            android:background="@drawable/button_shape"
+            android:text="Search"
+            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 
@@ -51,14 +55,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Cancel" />
+            android:background="@drawable/button_border"
+            android:text="Cancel"
+            android:textColor="#FF6E40" />
 
         <Button
             android:id="@+id/Save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Save" />
+            android:background="@drawable/button_border"
+            android:text="Save"
+            android:textColor="#55AC42" />
 
     </LinearLayout>
 
